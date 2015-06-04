@@ -2,8 +2,6 @@ node_modules/
 temp/
 *.dump
 .DS_Store
-app/index.js
-*/index.js
 !test/*.js
 !test/
 
