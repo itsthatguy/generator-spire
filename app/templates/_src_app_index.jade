@@ -1,0 +1,17 @@
+doctype html
+html(ng-app="<%= projectName %>")
+  head
+    title your app
+    //- vendor:css
+    //- endinject
+    //- head:css
+    //- endinject
+    meta(name="viewport" content="initial-scale=1, maximum-scale=1")
+    link(href="./index.css" rel="stylesheet" type="text/css")
+    link(href="images/icon.png" rel="icon" type="image/png")
+  body
+    div(ui-view)
+    //- vendor:js
+    //- endinject
+    script(src="./main.js")
+

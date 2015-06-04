@@ -1,0 +1,16 @@
+$body-font-color: white;
+$header-font-color: white;
+
+@import './bower_components/foundation/scss/foundation';
+@import './bower_components/owl.carousel/dist/assets/owl.theme.default.css';
+
+/* Do not remove this comments bellow.
+   It's the markers used by gulp-inject to inject
+   all your sass files automatically */
+// inject:scss
+// endinject
+//
+
+body {
+  background: #242424;
+}
