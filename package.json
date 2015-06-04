@@ -2,12 +2,12 @@
   "name": "generator-angular",
   "version": "0.0.1",
   "description": "My preferred angular setup",
-  "main": "index.js",
+  "main": "app/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "chalk": "^1.0.0",
     "yeoman-generator": "^0.20.1"
