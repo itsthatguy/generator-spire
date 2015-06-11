@@ -13,7 +13,7 @@ global.$ = require('gulp-load-plugins')({
     'tosource']
 });
 
-require('./gulp/config');
+require('./config');
 
 var bulk = require('bulk-require');
 bulk(__dirname, ['gulp/tasks/*']);
