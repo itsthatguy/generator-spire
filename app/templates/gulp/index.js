@@ -16,6 +16,6 @@ global.$ = require('gulp-load-plugins')({
 require('./config');
 
 var bulk = require('bulk-require');
-bulk(__dirname, ['gulp/tasks/*']);
+bulk(__dirname, ['./tasks/*']);
 
 gulp.task('default', ['clean', 'assets', 'js', 'sass', 'jade', 'assets:vendor', 'assets:data', 'lint']);
