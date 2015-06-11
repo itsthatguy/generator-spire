@@ -3,7 +3,7 @@
 function DataService() {
   return {
     get: function(filename){
-      return new Promise(function(resolve, reject) {
+      return new Promise(function(resolve) {
         var data = require('../../../data/' + filename).data;
         resolve(data);
       });
