@@ -75,6 +75,7 @@ module.exports = AngularGenerator = yeoman.generators.Base.extend({
   projectfiles: function() {
     this.fs.copyTpl(this.templatePath('_package.json'), this.destinationPath('package.json'), this.config);
     this.fs.copyTpl(this.templatePath('_bower.json'), this.destinationPath('bower.json'), this.config);
+    this.fs.copy(this.templatePath('.gitignore'), this.destinationPath('.gitignore'));
     this.fs.copy(this.templatePath('.jshintrc'), this.destinationPath('.jshintrc'));
     this.fs.copy(this.templatePath('Gulpfile.js'), this.destinationPath('Gulpfile.js'));
     this.fs.copy(this.templatePath('Procfile'), this.destinationPath('Procfile'));
