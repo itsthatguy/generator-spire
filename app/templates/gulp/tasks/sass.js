@@ -8,7 +8,7 @@ gulp.task('sass', function() {
   .pipe($.plumber())
   .pipe($.inject(injectSassSrc, config.sass.inject.options))
   .pipe($.sass(config.sass.options))
-  .on('error', $.util.log)
+  .on('error', $.sass.logError)
   .pipe(gulp.dest(config.sass.dest))
   .pipe($.filter(config.sass.filter))
   .pipe($.browserSync.reload({stream:true}));
