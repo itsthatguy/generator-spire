@@ -9,7 +9,7 @@ bower install
 
 ### Running things
 ```shell
-# Running without nw.js (many features will break)
+<% if (nwjs) { %># Running without nw.js (many features will break)<% } %>
 $(npm bin)/gulp serve # starts the app in the browser
 <% if (nwjs) { %>
 # Running in nw.js
