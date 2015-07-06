@@ -4,7 +4,6 @@
 ### Install requirements
 ```shell
 npm install
-bower install
 ```
 
 ### Running things
