@@ -60,6 +60,12 @@ module.exports = AngularGenerator = yeoman.generators.Base.extend({
       message: 'Do you want to generate the gulp files?',
       default: true
     });
+    this.prompts.push({
+      name: 'deploGh',
+      type: 'confirm',
+      message: 'Will this application be deployed to gh-pages?',
+      default: false
+    });
 
     var self = this;
     this.prompt(this.prompts, function(answers) {
@@ -88,6 +94,11 @@ module.exports = AngularGenerator = yeoman.generators.Base.extend({
     if (!this.config.generate || !this.config.gulp) { return; }
     this.fs.copyTpl(this.templatePath('Gulpfile.js'), this.destinationPath('Gulpfile.js'));
     this.fs.copy(this.templatePath('gulp'), this.destinationPath('gulp'));
+  },
+
+  deployfiles: function() {
+    if (!this.config.generate || !this.config.deployGh) { return; }
+    this.fs.copyTpl(this.templatePath('_gulp_tasks_deploy-gh.js'), this.destinationPath('gulp/tasks/deploy-gh.js'));
   },
 
   srcfiles: function() {
