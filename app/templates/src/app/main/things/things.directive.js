@@ -3,9 +3,9 @@
 export default function() {
   return {
     scope: {},
-    templateUrl: 'app/main/thing/thing.index.html',
+    templateUrl: 'app/main/things/things.index.html',
     replace: true,
-    controller: 'ThingController',
+    controller: 'ThingsController',
     controllerAs: 'ctrl'
   };
 }
