@@ -82,8 +82,8 @@ module.exports = AngularGenerator = yeoman.generators.Base.extend({
     this.fs.copyTpl(this.templatePath('_package.json'), this.destinationPath('package.json'), this.config);
     this.fs.copyTpl(this.templatePath('_bower.json'), this.destinationPath('bower.json'), this.config);
     this.fs.copyTpl(this.templatePath('_README.md'), this.destinationPath('README.md'), this.config);
-    this.fs.copy(this.templatePath('.gitignore'), this.destinationPath('.gitignore'));
-    this.fs.copy(this.templatePath('.jshintrc'), this.destinationPath('.jshintrc'));
+    this.fs.copy(this.templatePath('gitignore'), this.destinationPath('.gitignore'));
+    this.fs.copy(this.templatePath('jshintrc'), this.destinationPath('.jshintrc'));
     this.fs.copy(this.templatePath('Gulpfile.js'), this.destinationPath('Gulpfile.js'));
     this.fs.copy(this.templatePath('Procfile'), this.destinationPath('Procfile'));
     this.fs.copy(this.templatePath('server.js'), this.destinationPath('server.js'));
@@ -110,7 +110,7 @@ module.exports = AngularGenerator = yeoman.generators.Base.extend({
     this.fs.copyTpl(this.templatePath('_src_app_index.jade'), this.destinationPath('src/app/index.jade'), this.config);
     this.fs.copyTpl(this.templatePath('_src_app_index.js'), this.destinationPath('src/app/index.js'), this.config);
     this.fs.copyTpl(this.templatePath('_src_app_main_main.js'), this.destinationPath('src/app/main/main.js'), this.config);
-    this.fs.copyTpl(this.templatePath('_src_app_main_thing_thing.js'), this.destinationPath('src/app/main/thing/thing.js'), this.config);
+    this.fs.copyTpl(this.templatePath('_src_app_main_things_things.js'), this.destinationPath('src/app/main/things/things.js'), this.config);
   },
 
   end: function() {
