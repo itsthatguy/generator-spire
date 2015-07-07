@@ -99,7 +99,7 @@ module.exports = AngularGenerator = yeoman.generators.Base.extend({
     this.fs.copyTpl(this.templatePath('_src_app_index.jade'), this.destinationPath('src/app/index.jade'), this.config);
     this.fs.copyTpl(this.templatePath('_src_app_index.js'), this.destinationPath('src/app/index.js'), this.config);
     this.fs.copyTpl(this.templatePath('_src_app_main_main.js'), this.destinationPath('src/app/main/main.js'), this.config);
-    this.fs.copyTpl(this.templatePath('_src_app_main_thing_thing.js'), this.destinationPath('src/app/main/thing/thing.js'), this.config);
+    this.fs.copyTpl(this.templatePath('_src_app_main_things_things.js'), this.destinationPath('src/app/main/things/things.js'), this.config);
   },
 
   end: function() {
