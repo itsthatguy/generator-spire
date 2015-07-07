@@ -11,8 +11,11 @@ cd generator-angular
 npm link
 ```
 
-Finally, initiate the generator:
+Finally, using the generator:
 
 ```bash
+# Create a directory for the project you will generate
+mkdir <your_project>
+cd <your_project>
 yo angular
 ```
