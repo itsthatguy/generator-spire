@@ -7,13 +7,16 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         loader: 'babel-loader'
       }
     ]
   },
   resolve: {
-    extensions: ['', '.js']
-  }
+    extensions: ['', '.js', '.jsx']
+  }<% if (react) { %>,
+  externals: {
+    react: 'React'
+  }<% } %>
 };

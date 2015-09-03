@@ -61,7 +61,7 @@ config.jade = {
 };
 
 config.js = {
-  src: config.PROJECT_ROOT + '/src/app/index.js',
+  src: config.PROJECT_ROOT + '/src/app/index.{jsx,js}',
   dest: config.DIST,
   inject: {
     options: {
@@ -78,7 +78,7 @@ config.js = {
 
 config.lint = {
   src: [
-    config.PROJECT_ROOT + '/src/**/*.js',
+    config.PROJECT_ROOT + '/src/**/*.{jsx,js}',
     config.PROJECT_ROOT + '/gulp/**/*.js',
     config.PROJECT_ROOT + '/gulpfile.js',
     config.PROJECT_ROOT + '/webpack.config.js'
@@ -145,7 +145,7 @@ config.watch = {
   },
   js: {
     task: 'js',
-    src: config.PROJECT_ROOT + '/src/**/*.js'
+    src: config.PROJECT_ROOT + '/src/**/*.{js,jsx}'
   },
   lint: {
     task: 'lint',

@@ -3,5 +3,5 @@
 
 // Swab the deck!
 gulp.task('clean', function() {
-  return $.del.sync('dist/**/*');
+  return $.del.sync(config.clean.src);
 });

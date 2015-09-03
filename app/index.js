@@ -25,11 +25,12 @@ module.exports = AngularGenerator = yeoman.generators.Base.extend({
 
     this.log(chalk.magenta('You\'re using the fantastic adorable generator.'));
 
+    var generateChoices = ['react', 'angular'];
     this.prompts.push({
       name: 'generate',
-      type: 'confirm',
-      message: 'This will scaffold an angular project. Do you want to continue?',
-      default: true
+      type: 'list',
+      message: 'What kind of app would you like to generate?',
+      choices: generateChoices
     });
     this.prompts.push({
       name: 'nwjs',
@@ -68,6 +69,9 @@ module.exports = AngularGenerator = yeoman.generators.Base.extend({
     });
 
     var self = this;
+    generateChoices.forEach(function(choice) {
+      self.config[choice] = false;
+    });
     this.prompt(this.prompts, function(answers) {
       var answer, question;
       for (question in answers) {
@@ -79,30 +83,33 @@ module.exports = AngularGenerator = yeoman.generators.Base.extend({
   },
 
   projectfiles: function() {
+    this.config[this.config.generate] = true;
+
     this.fs.copyTpl(this.templatePath('_package.json'), this.destinationPath('package.json'), this.config);
     this.fs.copyTpl(this.templatePath('_bower.json'), this.destinationPath('bower.json'), this.config);
     this.fs.copyTpl(this.templatePath('_README.md'), this.destinationPath('README.md'), this.config);
+    this.fs.copyTpl(this.templatePath('_eslintrc'), this.destinationPath('.eslintrc'), this.config);
+    this.fs.copyTpl(this.templatePath('_webpack.config.js'), this.destinationPath('webpack.config.js'), this.config);
     this.fs.copy(this.templatePath('gitignore'), this.destinationPath('.gitignore'));
-    this.fs.copy(this.templatePath('jshintrc'), this.destinationPath('.jshintrc'));
     this.fs.copy(this.templatePath('Gulpfile.js'), this.destinationPath('Gulpfile.js'));
     this.fs.copy(this.templatePath('Procfile'), this.destinationPath('Procfile'));
     this.fs.copy(this.templatePath('server.js'), this.destinationPath('server.js'));
-    this.fs.copy(this.templatePath('webpack.config.js'), this.destinationPath('webpack.config.js'));
   },
 
   gulpfiles: function() {
-    if (!this.config.generate || !this.config.gulp) { return; }
-    this.fs.copyTpl(this.templatePath('Gulpfile.js'), this.destinationPath('Gulpfile.js'));
+    if (!this.config.gulp) { return; }
+    this.fs.copyTpl(this.templatePath('Gulpfile.js'), this.destinationPath('Gulpfile.js'), this.config);
+    this.fs.copyTpl(this.templatePath('_gulp_config.js'), this.destinationPath('gulp/config.js'));
     this.fs.copy(this.templatePath('gulp'), this.destinationPath('gulp'));
   },
 
   deployfiles: function() {
-    if (!this.config.generate || !this.config.deployGh) { return; }
+    if (!this.config.deployGh) { return; }
     this.fs.copyTpl(this.templatePath('_gulp_tasks_deploy-gh.js'), this.destinationPath('gulp/tasks/deploy-gh.js'));
   },
 
   srcfiles: function() {
-    if (!this.config.generate || !this.config.src) { return; }
+    if (!this.config.src) { return; }
 
     this.fs.copy(this.templatePath('src'), this.destinationPath('src'));
     this.fs.copyTpl(this.templatePath('_src_app_components_data_data.js'), this.destinationPath('src/app/components/data/data.js'), this.config);
