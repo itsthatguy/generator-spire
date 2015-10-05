@@ -1,3 +1,14 @@
+var _           = require('lodash');
+var path        = require('path');
+var webpack     = require('webpack');
+var environment = process.env.NODE_ENV || 'development';
+
+var applicationConfig = require(path.join(__dirname, 'src', 'config', 'application.js')) || {};
+var environmentConfig = require(path.join(__dirname, 'src', 'config', 'environment', environment + '.js')) || {}
+var mergedConfig = _.merge(applicationConfig, environmentConfig);
+
+console.log('ENVIRONMENT: ', environment);
+
 module.exports = {
   devtool: '#source-map',
   output: {
@@ -13,6 +24,11 @@ module.exports = {
       }
     ]
   },
+  plugins: [
+   new webpack.DefinePlugin({
+     CONFIG: JSON.stringify(mergedConfig)
+   }),
+  ],
   resolve: {
     extensions: ['', '.js', '.jsx']
   }<% if (react) { %>,
