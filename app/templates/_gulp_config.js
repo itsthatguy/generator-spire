@@ -63,16 +63,6 @@ config.jade = {
 config.js = {
   src: config.PROJECT_ROOT + '/src/app/index.{jsx,js}',
   dest: config.DIST,
-  inject: {
-    options: {
-      transform: function() {
-        var configContents = require(path.join(config.PROJECT_ROOT, 'src/config/environment', environment + '.js'));
-        return '.constant(\'CONFIG\', ' + $.tosource(configContents) + ')';
-      },
-      starttag: '// injectconfig',
-      endtag: '// endinject'
-    }
-  },
   webpackOptions: require(config.PROJECT_ROOT + '/webpack.config.js'),
 };
 
