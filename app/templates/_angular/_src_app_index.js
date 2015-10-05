@@ -17,10 +17,6 @@ angular.module('<%= projectName %>',
    '<%= projectName %>.Main']
 )
 
-// DO NOT EDIT OR REMOVE THESE NEXT 2 LINES
-// injectconfig
-// endinject
-
 .config(function ($stateProvider, $urlRouterProvider) {
   $stateProvider
   .state('home', {

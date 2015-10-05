@@ -111,13 +111,23 @@ module.exports = AngularGenerator = yeoman.generators.Base.extend({
   srcfiles: function() {
     if (!this.config.src) { return; }
 
-    this.fs.copy(this.templatePath('src'), this.destinationPath('src'));
-    this.fs.copyTpl(this.templatePath('_src_app_components_data_data.js'), this.destinationPath('src/app/components/data/data.js'), this.config);
-    this.fs.copyTpl(this.templatePath('_src_app_components_navbar_navbar.js'), this.destinationPath('src/app/components/navbar/navbar.js'), this.config);
     this.fs.copyTpl(this.templatePath('_src_app_index.jade'), this.destinationPath('src/app/index.jade'), this.config);
-    this.fs.copyTpl(this.templatePath('_src_app_index.js'), this.destinationPath('src/app/index.js'), this.config);
-    this.fs.copyTpl(this.templatePath('_src_app_main_main.js'), this.destinationPath('src/app/main/main.js'), this.config);
-    this.fs.copyTpl(this.templatePath('_src_app_main_things_things.js'), this.destinationPath('src/app/main/things/things.js'), this.config);
+    this.fs.copy(this.templatePath('src'), this.destinationPath('src'));
+
+    if (this.config.angular) {
+      this.fs.copy(this.templatePath('_angular/src/app'), this.destinationPath('src/app'));
+      this.fs.copyTpl(this.templatePath('_angular_src/_src_app_components_data_data.js'), this.destinationPath('src/app/components/data/data.js'), this.config);
+      this.fs.copyTpl(this.templatePath('_angular_src/_src_app_components_navbar_navbar.js'), this.destinationPath('src/app/components/navbar/navbar.js'), this.config);
+      this.fs.copyTpl(this.templatePath('_angular_src/_src_app_index.js'), this.destinationPath('src/app/index.js'), this.config);
+      this.fs.copyTpl(this.templatePath('_angular_src/_src_app_main_main.js'), this.destinationPath('src/app/main/main.js'), this.config);
+      this.fs.copyTpl(this.templatePath('_angular_src/_src_app_main_things_things.js'), this.destinationPath('src/app/main/things/things.js'), this.config);
+    }
+
+    if (this.config.react) {
+      this.fs.copy(this.templatePath('_react/src/app'), this.destinationPath('src/app'));
+      this.fs.copy(this.templatePath('_react/src/lib'), this.destinationPath('src/lib'));
+      this.fs.copyTpl(this.templatePath('_react/_src_app_index.jsx'), this.destinationPath('src/app/index.jsx'));
+    }
   },
 
   end: function() {
