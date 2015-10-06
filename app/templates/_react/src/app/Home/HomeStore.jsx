@@ -1,4 +1,4 @@
-import alt from '../../../lib/alt';
+import alt from '../../lib/alt';
 import HomeActions from './HomeActions';
 
 // Store
@@ -10,4 +10,4 @@ class HomeStore {
   } 
 }
 
-export default alt.createStore(HomeStore, 'HomeStore'); 
+export default alt.createStore(HomeStore, 'HomeStore');

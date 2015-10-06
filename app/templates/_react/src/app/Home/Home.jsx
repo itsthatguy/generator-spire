@@ -14,8 +14,7 @@ class Home extends React.Component {
     return HomeStore.getState();
   }
 
-  componentWillMount () {
-  }
+  componentWillMount () { }
 
   componentWillReceiveProps () { }
 
@@ -28,4 +27,3 @@ class Home extends React.Component {
 }
 
 export default connectToStores(Home);
-
