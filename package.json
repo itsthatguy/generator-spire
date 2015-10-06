@@ -1,7 +1,7 @@
 {
-  "name": "generator-angular",
+  "name": "generator-spire",
   "version": "0.0.1",
-  "description": "My preferred angular setup",
+  "description": "My preferred front-end setup",
   "main": "app/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
