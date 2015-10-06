@@ -84,7 +84,7 @@ config.sass = {
   inject: {
     src: [path.join(config.PROJECT_ROOT, 'src/app/**/*.scss')],
     options: {
-      transform: function (filepath) {
+      transform: (filepath) => {
         return '@import "' + filepath + '";';
       },
       starttag: '// inject:scss',

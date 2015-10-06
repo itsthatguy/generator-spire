@@ -4,9 +4,9 @@
 // Watching the things:
 // gulp.watch is limited and doesn't observe files that
 // are added after the task is run, so we use gulp-watch
-gulp.task('watch', ['default'], function() {
+gulp.task('watch', ['default'], () => {
   function watch(src, task) {
-    return $.watch(src, function() {
+    return $.watch(src, () => {
       gulp.start(task);
     });
   }

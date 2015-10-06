@@ -3,9 +3,9 @@
 
 var fs = require('fs');
 
-gulp.task('deploy:gh', ['default'], function() {
+gulp.task('deploy:gh', ['default'], () => {
   var bowerComponentsDir = path.join(config.PROJECT_ROOT, 'bower_components');
-  fs.exists(bowerComponentsDir, function(exists) {
+  fs.exists(bowerComponentsDir, (exists) => {
     if (!exists) { fs.mkdirSync(bowerComponentsDir); }
   });
 
