@@ -61,24 +61,14 @@ config.jade = {
 };
 
 config.js = {
-  src: config.PROJECT_ROOT + '/src/app/index.js',
+  src: config.PROJECT_ROOT + '/src/app/index.{jsx,js}',
   dest: config.DIST,
-  inject: {
-    options: {
-      transform: function() {
-        var configContents = require(path.join(config.PROJECT_ROOT, 'src/config/environment', environment + '.js'));
-        return '.constant(\'CONFIG\', ' + $.tosource(configContents) + ')';
-      },
-      starttag: '// injectconfig',
-      endtag: '// endinject'
-    }
-  },
   webpackOptions: require(config.PROJECT_ROOT + '/webpack.config.js'),
 };
 
 config.lint = {
   src: [
-    config.PROJECT_ROOT + '/src/**/*.js',
+    config.PROJECT_ROOT + '/src/**/*.{jsx,js}',
     config.PROJECT_ROOT + '/gulp/**/*.js',
     config.PROJECT_ROOT + '/gulpfile.js',
     config.PROJECT_ROOT + '/webpack.config.js'
@@ -94,7 +84,7 @@ config.sass = {
   inject: {
     src: [path.join(config.PROJECT_ROOT, 'src/app/**/*.scss')],
     options: {
-      transform: function (filepath) {
+      transform: (filepath) => {
         return '@import "' + filepath + '";';
       },
       starttag: '// inject:scss',
@@ -145,7 +135,7 @@ config.watch = {
   },
   js: {
     task: 'js',
-    src: config.PROJECT_ROOT + '/src/**/*.js'
+    src: config.PROJECT_ROOT + '/src/**/*.{js,jsx}'
   },
   lint: {
     task: 'lint',

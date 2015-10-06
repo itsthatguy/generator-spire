@@ -1,5 +1,5 @@
 doctype html
-html(ng-app="<%= projectName %>")
+html<% if (angular) { %>(ng-app="<%= projectName %>")<% } %>
   head
     title your app
     //- vendor:css
@@ -10,8 +10,8 @@ html(ng-app="<%= projectName %>")
     link(href="./index.css" rel="stylesheet" type="text/css")
     link(href="images/icon.png" rel="icon" type="image/png")
   body
-    div(ui-view)
+    <% if (angular) { %>div(ui-view)<% } %>
+    <% if (react) { %>#content<% } %>
     //- vendor:js
     //- endinject
     script(src="./main.js")
-

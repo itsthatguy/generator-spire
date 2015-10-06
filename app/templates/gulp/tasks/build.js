@@ -1,5 +1,5 @@
 'use strict';
 
-gulp.task('build', ['default'], function() {
+gulp.task('build', ['default'], () => {
   console.log('nothing here yet');
 });
