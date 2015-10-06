@@ -1,11 +1,11 @@
 'use strict';
 
-var AngularGenerator,
+var SpireGenerator,
     yeoman = require('yeoman-generator'),
     chalk  = require('chalk'),
     path   = require('path');
 
-module.exports = AngularGenerator = yeoman.generators.Base.extend({
+module.exports = SpireGenerator = yeoman.generators.Base.extend({
   constructor: function() {
     yeoman.generators.Base.apply(this, arguments);
   },
