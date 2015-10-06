@@ -1,7 +1,8 @@
-import React             from 'react';
+import React            from 'react';
 import {Router, Route, Redirect, IndexRoute} from 'react-router';
+import history          from '../lib/history';
 
-import history           from '../lib/history';
+import Home             from './Home/Home';
 
 let App = React.createClass({
   render () {
