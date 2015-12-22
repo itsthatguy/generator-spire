@@ -1,10 +1,8 @@
 /* global config, $ */
-'use strict';
-
 // Moves static files to dist folder
-gulp.task('assets', () => {
+gulp.task('assets', function() {
   return gulp.src(config.assets.src)
   .pipe($.plumber())
   .pipe(gulp.dest(config.assets.dest))
-  .pipe($.browserSync.reload({stream:true}));
+  .pipe($.browserSync.reload({stream: true}));
 });

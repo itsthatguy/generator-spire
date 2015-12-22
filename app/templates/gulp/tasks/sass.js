@@ -1,5 +1,5 @@
 /* global config, $ */
-gulp.task('sass', () => {
+gulp.task('sass', function() {
   var injectSassSrc = gulp.src(config.sass.inject.src, {read: false});
 
   return gulp.src(config.sass.src)

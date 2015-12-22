@@ -10,14 +10,18 @@
   "globals": {
     "document": true,
     "window": true,
-    "gulp": true,<% if (react) { %>
-    "React": true,<% } %><% if (angular) { %>
-    "angular": true,<% } %>
+    "gulp": true,
+    "React": true,
     "fetch": true,
-    "CONFIG": true
+    "CONFIG": true,
+    "environment": true,
+    "ADMIN_SCOPE": true,
+    "EDIT_SCOPE": true,
+    "LEGAL_SCOPE": true,
+    "VIP_SCOPE": true
   },
-  "plugins": [<% if (react) { %>
-    "react"<% } %>
+  "plugins": [
+    "react"
   ],
   "rules": {
     // Possible Errors
@@ -31,6 +35,7 @@
     "no-empty-character-class": 2,
     "no-ex-assign": 2,
     "no-extra-boolean-cast": 2,
+    "no-extra-parens": 0,
     "no-extra-semi": 2,
     "no-func-assign": 2,
     "no-inner-declarations": 2,
@@ -138,7 +143,6 @@
     "no-trailing-spaces": 2,
     "no-multiple-empty-lines": 2,
     "no-underscore-dangle": 0,
-    "no-extra-parens": 0,
     "one-var": 0,
     "operator-assignment": [2, "always"],
     "padded-blocks": 0,
@@ -148,7 +152,6 @@
     "sort-vars": [2, {"ignoreCase": true}],
     "space-after-keywords": 2,
     "space-before-blocks": 2,
-    "space-before-function-paren": 2,
     "space-in-parens": 2,
     "space-infix-ops": 2,
     "space-return-throw-case": 2,

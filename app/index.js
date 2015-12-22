@@ -89,6 +89,7 @@ module.exports = SpireGenerator = yeoman.generators.Base.extend({
     this.fs.copyTpl(this.templatePath('_bower.json'), this.destinationPath('bower.json'), this.config);
     this.fs.copyTpl(this.templatePath('_README.md'), this.destinationPath('README.md'), this.config);
     this.fs.copyTpl(this.templatePath('_eslintrc'), this.destinationPath('.eslintrc'), this.config);
+    this.fs.copyTpl(this.templatePath('_sasslint.js'), this.destinationPath('.sasslint.js'), this.config);
     this.fs.copyTpl(this.templatePath('_webpack.config.js'), this.destinationPath('webpack.config.js'), this.config);
     this.fs.copy(this.templatePath('gitignore'), this.destinationPath('.gitignore'));
     this.fs.copy(this.templatePath('Gulpfile.js'), this.destinationPath('Gulpfile.js'));
