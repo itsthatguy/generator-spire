@@ -38,14 +38,14 @@ ForceCaseSensitivityPlugin.prototype.apply = function (compiler) {
 };
 
 var entry = [];
-
+<% if (react) { %>
 if (environment === 'development' && !docker) {
   entry = [
     'webpack/hot/dev-server',
     'webpack-hot-middleware/client'
   ];
 }
-
+<% } %>
 var environmentConfig = require(path.join(__dirname, 'src', 'config', 'environment', environment + '.js'));
 environmentConfig.environment = environment;
 environmentConfig.docker = docker;
@@ -66,18 +66,18 @@ module.exports = {
     new ForceCaseSensitivityPlugin(),
     new webpack.DefinePlugin({
       CONFIG: JSON.stringify(environmentConfig)
-    }),
+    })<% if (react) { %>,
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
-  ],
+  <% } %>],
 
   module: {
     loaders: [
       {
         test: /\.(jsx|js)$/,
         exclude: /node_modules/,
-        loaders: ['react-hot', 'babel-loader']
+        loaders: [<% if (react) { %>'react-hot', <% } %>'babel-loader']
       }
     ]
   },
