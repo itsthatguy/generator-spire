@@ -63,7 +63,7 @@ module.exports = SpireGenerator = yeoman.generators.Base.extend({
       default: true
     });
     this.prompts.push({
-      name: 'deploGh',
+      name: 'deployGh',
       type: 'confirm',
       message: 'Will this application be deployed to gh-pages?',
       default: false
@@ -140,14 +140,15 @@ module.exports = SpireGenerator = yeoman.generators.Base.extend({
 
       this.fs.copy(this.templatePath('_react/src/app'), this.destinationPath('src/app'));
       this.fs.copy(this.templatePath('_react/src/lib'), this.destinationPath('src/lib'));
-      this.fs.copyTpl(this.templatePath('_react/_src_app_index.jsx'), this.destinationPath('src/app/index.jsx'));
     }
 
+    console.log(this.config);
     if (this.config.deployGh) {
       processPackage.bind(this, 'package.deploy-gh.json')();
 
       this.fs.copyTpl(this.templatePath('_gulp_tasks_deploy-gh.js'), this.destinationPath('gulp/tasks/deploy-gh.js'));
     }
+
     var destPath = this.destinationPath('package.json');
     this.fs.copyTpl(destPath, destPath, this.config);
   },
