@@ -8,5 +8,8 @@
     "postinstall": "bower install",
     "start": "$(npm bin)/gulp serve",
     "test": "mocha"
+  },
+  "devDependencies": {
+    "hapi": "^11.1.0"
   }
 }
