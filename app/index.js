@@ -1,9 +1,10 @@
 'use strict';
 
 var SpireGenerator,
-    yeoman = require('yeoman-generator'),
-    chalk  = require('chalk'),
-    path   = require('path');
+    yeoman  = require('yeoman-generator'),
+    chalk   = require('chalk'),
+    path    = require('path'),
+    merge   = require('lodash').merge;
 
 module.exports = SpireGenerator = yeoman.generators.Base.extend({
   constructor: function() {
@@ -85,7 +86,6 @@ module.exports = SpireGenerator = yeoman.generators.Base.extend({
   projectfiles: function() {
     this.config[this.config.generate] = true;
 
-    this.fs.copyTpl(this.templatePath('_package.json'), this.destinationPath('package.json'), this.config);
     this.fs.copyTpl(this.templatePath('_bower.json'), this.destinationPath('bower.json'), this.config);
     this.fs.copyTpl(this.templatePath('_README.md'), this.destinationPath('README.md'), this.config);
     this.fs.copyTpl(this.templatePath('_eslintrc'), this.destinationPath('.eslintrc'), this.config);
@@ -103,18 +103,28 @@ module.exports = SpireGenerator = yeoman.generators.Base.extend({
     this.fs.copy(this.templatePath('gulp'), this.destinationPath('gulp'));
   },
 
-  deployfiles: function() {
-    if (!this.config.deployGh) { return; }
-    this.fs.copyTpl(this.templatePath('_gulp_tasks_deploy-gh.js'), this.destinationPath('gulp/tasks/deploy-gh.js'));
-  },
-
   srcfiles: function() {
     if (!this.config.src) { return; }
+    var pkgPath = this.templatePath('_package.json');
+    var pkgDestPath = this.destinationPath('package.json');
+    var pkg = this.fs.readJSON(pkgPath);
+
+    function processPackage (file) {
+      var contents = this.fs.readJSON(this.templatePath(`_${file}`));
+      var destPath = this.destinationPath(file);
+      pkg = merge(pkg, contents);
+      this.fs.writeJSON(pkgDestPath, pkg);
+      return destPath;
+    }
+
+    processPackage.bind(this, 'package.json')();
 
     this.fs.copyTpl(this.templatePath('_src_app_index.jade'), this.destinationPath('src/app/index.jade'), this.config);
     this.fs.copy(this.templatePath('src'), this.destinationPath('src'));
 
     if (this.config.angular) {
+      processPackage.bind(this, 'package.angular.json')();
+
       this.fs.copy(this.templatePath('_angular/src/app'), this.destinationPath('src/app'));
       this.fs.copyTpl(this.templatePath('_angular_src/_src_app_components_data_data.js'), this.destinationPath('src/app/components/data/data.js'), this.config);
       this.fs.copyTpl(this.templatePath('_angular_src/_src_app_components_navbar_navbar.js'), this.destinationPath('src/app/components/navbar/navbar.js'), this.config);
@@ -124,10 +134,20 @@ module.exports = SpireGenerator = yeoman.generators.Base.extend({
     }
 
     if (this.config.react) {
+      processPackage.bind(this, 'package.react.json')();
+
       this.fs.copy(this.templatePath('_react/src/app'), this.destinationPath('src/app'));
       this.fs.copy(this.templatePath('_react/src/lib'), this.destinationPath('src/lib'));
       this.fs.copyTpl(this.templatePath('_react/_src_app_index.jsx'), this.destinationPath('src/app/index.jsx'));
     }
+
+    if (this.config.deployGh) {
+      processPackage.bind(this, 'package.deploy-gh.json')();
+
+      this.fs.copyTpl(this.templatePath('_gulp_tasks_deploy-gh.js'), this.destinationPath('gulp/tasks/deploy-gh.js'));
+    }
+    var destPath = this.destinationPath('package.json');
+    this.fs.copyTpl(destPath, destPath, this.config);
   },
 
   end: function() {
