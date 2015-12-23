@@ -39,13 +39,49 @@
     "webpack-hot-middleware": "^2.0.0"
   },
   "devDependencies": {
+    "babel-jest": "^5.3.0",
     "chai": "^1.10.0",
     "eslint": "^0.24.0",
     "eslint-plugin-react": "^2.6.4",
     "gulp-eslint": "^1.0.0",
-    "gulp-sass-lint": "^1.1.0"
+    "gulp-sass-lint": "^1.1.0",
+    "jasmine-object-matchers-jest": "^0.1.0",
+    "jest-cli": "^0.5.8",
+    "react-addons-test-utils": "^0.14.2"
   },
   "scripts": {
     "test": "$(npm bin)/jest"
+  },
+  "jest": {
+    "verbose": true,
+    "setupTestFrameworkScriptFile": "__tests__/test-setup.js",
+    "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
+    "modulePathIgnorePatterns": [
+      "<rootDir>/node_modules/"
+    ],
+    "unmockedModulePathPatterns": [
+      "<rootDir>/node_modules/alt",
+      "<rootDir>/node_modules/history",
+      "<rootDir>/node_modules/lodash",
+      "<rootDir>/node_modules/query-string",
+      "<rootDir>/node_modules/react",
+      "<rootDir>/src/lib/alt.jsx",
+      "<rootDir>/src/lib/history.jsx"
+    ],
+    "testPathIgnorePatterns": [
+      "<rootDir>/__tests__/test-setup.js",
+      "<rootDir>/__tests__/test-helper.js"
+    ],
+    "testPathPattern": "/.*-test.js/",
+    "testFileExtensions": [
+      "js"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "jsx"
+    ],
+    "globals": {
+      "CONFIG": true
+    }
   }
 }
