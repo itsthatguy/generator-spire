@@ -1,7 +1,7 @@
 # <%= projectName %>
 <%= projectDesc %>
 
-### Install requirements
+### Getting Started
 ```shell
 npm install
 ```
@@ -10,6 +10,7 @@ npm install
 ```shell
 <% if (nwjs) { %># Running without nw.js (many features will break)<% } %>
 $(npm bin)/gulp serve # starts the app in the browser
+STANDALONE=true $(npm bin)/gulp serve # runs the app with the mock server
 <% if (nwjs) { %>
 # Running in nw.js
 $(npm bin)/gulp watch
