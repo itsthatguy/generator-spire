@@ -2,10 +2,13 @@
 global.config = {};
 config.PROJECT_ROOT = path.join(__dirname, '..');
 config.DIST = path.join(config.PROJECT_ROOT, 'dist');
+config.STANDALONE = process.env.STANDALONE === 'true';
 
 var envAssets = require('./environment/' + environment);
 
-var vendorAssetsOther = [];
+var vendorAssetsOther = [
+  path.join('bower_components', 'foundation-icon-fonts', '**/*.{eot,svg,ttf,woff}')
+];
 config.VENDOR_ASSETS = $.mainBowerFiles().concat(vendorAssetsOther, envAssets.vendor);
 
 config.assets = {
@@ -61,6 +64,7 @@ config.js = {
 
 config.lintJs = {
   src: [
+    config.PROJECT_ROOT + '__tests__/**/*.{jsx,js}',
     config.PROJECT_ROOT + '/src/**/*.{jsx,js}',
     config.PROJECT_ROOT + '/gulp/**/*.js',
     config.PROJECT_ROOT + '/gulpfile.js',
