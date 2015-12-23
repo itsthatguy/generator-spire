@@ -51,18 +51,6 @@ module.exports = SpireGenerator = yeoman.generators.Base.extend({
       message: 'Enter a brief project description'
     });
     this.prompts.push({
-      name: 'src',
-      type: 'confirm',
-      message: 'Do you want to generate the full src folder?',
-      default: true
-    });
-    this.prompts.push({
-      name: 'gulp',
-      type: 'confirm',
-      message: 'Do you want to generate the gulp files?',
-      default: true
-    });
-    this.prompts.push({
       name: 'deployGh',
       type: 'confirm',
       message: 'Will this application be deployed to gh-pages?',
@@ -99,14 +87,12 @@ module.exports = SpireGenerator = yeoman.generators.Base.extend({
   },
 
   gulpfiles: function() {
-    if (!this.config.gulp) { return; }
     this.fs.copyTpl(this.templatePath('Gulpfile.js'), this.destinationPath('Gulpfile.js'), this.config);
     this.fs.copyTpl(this.templatePath('_gulp_config.js'), this.destinationPath('gulp/config.js'));
     this.fs.copy(this.templatePath('gulp'), this.destinationPath('gulp'));
   },
 
   srcfiles: function() {
-    if (!this.config.src) { return; }
     var pkgPath = this.templatePath('_package.json');
     var pkgDestPath = this.destinationPath('package.json');
     var pkg = this.fs.readJSON(pkgPath);
