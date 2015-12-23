@@ -9,6 +9,9 @@
     "start": "$(npm bin)/gulp serve",
     "test": "mocha"
   },
+  "dependencies": {
+    "reqwest": "^2.0.5"
+  },
   "devDependencies": {
     "event-stream": "^3.3.2",
     "hapi": "^11.1.0"

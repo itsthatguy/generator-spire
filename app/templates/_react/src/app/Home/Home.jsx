@@ -1,5 +1,6 @@
 import React            from 'react';
 import connectToStores  from 'alt/utils/connectToStores';
+import request          from 'reqwest';
 
 import HomeStore   from './HomeStore';
 import HomeActions from './HomeActions';
@@ -14,7 +15,17 @@ class Home extends React.Component {
     return HomeStore.getState();
   }
 
-  componentWillMount () { }
+  componentWillMount () {
+    request({
+      url: `${CONFIG.api}/default`
+    })
+    .then((response) => {
+      HomeActions.setTitle(response.data.title);
+    })
+    .catch((error) => {
+      throw new Error(error);
+    });
+  }
 
   componentWillReceiveProps () { }
 

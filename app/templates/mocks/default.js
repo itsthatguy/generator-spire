@@ -7,10 +7,7 @@ module.exports = [
     response: () => {
       return {
         "data": {
-          {
-            "id": 1234,
-            "value": "awesome"
-          }
+          "title": "My Awesome Home Page, Dude!"
         }
       }
     }
