@@ -1,6 +1,6 @@
 {
   "name": "generator-spire",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "My preferred front-end setup",
   "main": "app/index.js",
   "scripts": {
@@ -13,8 +13,8 @@
   },
   "license": "MIT",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/itsthatguy/generator-spire.git"
+    "type": "git",
+    "url": "https://github.com/itsthatguy/generator-spire.git"
   },
   "dependencies": {
     "chalk": "^1.0.0",
