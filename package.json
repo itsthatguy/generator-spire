@@ -6,8 +6,16 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": {
+    "name": "Kevin Altman",
+    "email": "kevin@itsthatguy.com",
+    "url": "http://github.com/itsthatguy"
+  },
   "license": "MIT",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/itsthatguy/generator-spire.git"
+  },
   "dependencies": {
     "chalk": "^1.0.0",
     "lodash": "^3.10.1",
