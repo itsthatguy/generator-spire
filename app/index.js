@@ -26,7 +26,7 @@ module.exports = SpireGenerator = yeoman.generators.Base.extend({
 
     this.log(chalk.magenta('You\'re using the fantastic adorable generator.'));
 
-    var generateChoices = ['react', 'angular'];
+    var generateChoices = ['react'];//, 'angular'];
     this.prompts.push({
       name: 'generate',
       type: 'list',
@@ -109,17 +109,18 @@ module.exports = SpireGenerator = yeoman.generators.Base.extend({
 
     this.fs.copyTpl(this.templatePath('_src_app_index.jade'), this.destinationPath('src/app/index.jade'), this.config);
     this.fs.copy(this.templatePath('src'), this.destinationPath('src'));
+    this.fs.copy(this.templatePath('_react/__tests__'), this.destinationPath('__tests__'));
 
-    if (this.config.angular) {
-      processPackage.bind(this, 'package.angular.json')();
+    // if (this.config.angular) {
+    //   processPackage.bind(this, 'package.angular.json')();
 
-      this.fs.copy(this.templatePath('_angular/src/app'), this.destinationPath('src/app'));
-      this.fs.copyTpl(this.templatePath('_angular_src/_src_app_components_data_data.js'), this.destinationPath('src/app/components/data/data.js'), this.config);
-      this.fs.copyTpl(this.templatePath('_angular_src/_src_app_components_navbar_navbar.js'), this.destinationPath('src/app/components/navbar/navbar.js'), this.config);
-      this.fs.copyTpl(this.templatePath('_angular_src/_src_app_index.js'), this.destinationPath('src/app/index.js'), this.config);
-      this.fs.copyTpl(this.templatePath('_angular_src/_src_app_main_main.js'), this.destinationPath('src/app/main/main.js'), this.config);
-      this.fs.copyTpl(this.templatePath('_angular_src/_src_app_main_things_things.js'), this.destinationPath('src/app/main/things/things.js'), this.config);
-    }
+    //   this.fs.copy(this.templatePath('_angular/src/app'), this.destinationPath('src/app'));
+    //   this.fs.copyTpl(this.templatePath('_angular_src/_src_app_components_data_data.js'), this.destinationPath('src/app/components/data/data.js'), this.config);
+    //   this.fs.copyTpl(this.templatePath('_angular_src/_src_app_components_navbar_navbar.js'), this.destinationPath('src/app/components/navbar/navbar.js'), this.config);
+    //   this.fs.copyTpl(this.templatePath('_angular_src/_src_app_index.js'), this.destinationPath('src/app/index.js'), this.config);
+    //   this.fs.copyTpl(this.templatePath('_angular_src/_src_app_main_main.js'), this.destinationPath('src/app/main/main.js'), this.config);
+    //   this.fs.copyTpl(this.templatePath('_angular_src/_src_app_main_things_things.js'), this.destinationPath('src/app/main/things/things.js'), this.config);
+    // }
 
     if (this.config.react) {
       processPackage.bind(this, 'package.react.json')();
