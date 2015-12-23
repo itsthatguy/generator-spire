@@ -1,5 +1,3 @@
-'use strict';
-
 global.gulp = require('gulp');
 global.path = require('path');
 global.environment = process.env.NODE_ENV || 'development';
@@ -18,4 +16,5 @@ require('./config');
 var bulk = require('bulk-require');
 bulk(__dirname, ['./tasks/*']);
 
-gulp.task('default', ['clean', 'assets', 'js', 'sass', 'jade', 'assets:vendor', 'assets:data', 'lint']);
+gulp.task('watch-pre-task', ['clean', 'assets', 'sass', 'jade', 'assets:vendor', 'lint']);
+gulp.task('default', ['watch-pre-task', 'js']);

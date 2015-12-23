@@ -11,6 +11,14 @@ cd generator-spire
 npm link
 ```
 
+or you can install from npm
+
+
+```bash
+npm install -g yo
+npm install -g generator-spire
+```
+
 You're now done in the `generator-spire` folder, and can `cd` the hell out!
 
 ### Finally, using the generator:

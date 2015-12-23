@@ -1,3 +1,11 @@
+// foundation
+@import './bower_components/foundation/scss/normalize';
+@import './bower_components/foundation/scss/foundation/settings';
+@import './bower_components/foundation/scss/foundation/components/block-grid';
+
+// inject:scss
+// endinject
+
 body {
   background: #fafafa;
 }

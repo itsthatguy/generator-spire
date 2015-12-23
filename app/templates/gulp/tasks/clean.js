@@ -1,7 +1,5 @@
 /* global $ */
-'use strict';
-
 // Swab the deck!
-gulp.task('clean', () => {
-  return $.del.sync(config.clean.src);
+gulp.task('clean', function() {
+  return $.del.sync('dist/**/*');
 });
