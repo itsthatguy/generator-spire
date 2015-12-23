@@ -10,6 +10,7 @@
     "test": "mocha"
   },
   "devDependencies": {
+    "event-stream": "^3.3.2",
     "hapi": "^11.1.0"
   }
 }
