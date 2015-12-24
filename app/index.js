@@ -74,6 +74,9 @@ module.exports = SpireGenerator = yeoman.generators.Base.extend({
   projectfiles: function() {
     this.config[this.config.generate] = true;
 
+    // temporary for the removal of angular
+    this.config.angular = false;
+
     this.fs.copyTpl(this.templatePath('_bower.json'), this.destinationPath('bower.json'), this.config);
     this.fs.copyTpl(this.templatePath('_README.md'), this.destinationPath('README.md'), this.config);
     this.fs.copyTpl(this.templatePath('_eslintrc'), this.destinationPath('.eslintrc'), this.config);

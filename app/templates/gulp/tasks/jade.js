@@ -3,8 +3,8 @@
 // Compile jade, and inject <script> tags for
 // all of the bower dependencies
 gulp.task('jade', function() {
-  var bowerSrc = gulp.src(config.jade.inject.vendor.src, {read: false}),
-      headSrc  = gulp.src(config.jade.inject.head.src,  {read: false});
+  var bowerSrc = gulp.src(config.jade.inject.vendor.src, {read: false});
+  var headSrc  = gulp.src(config.jade.inject.head.src, {read: false});
 
   gulp.src(config.jade.inject.src)
   .pipe($.plumber())
