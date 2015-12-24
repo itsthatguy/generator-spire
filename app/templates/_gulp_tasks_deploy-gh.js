@@ -1,6 +1,4 @@
 /* global $, path, config */
-'use strict';
-
 var fs = require('fs');
 
 gulp.task('deploy:gh', ['default'], () => {

@@ -1,3 +1,4 @@
+/* global $ */
 gulp.task('build', ['default'], () => {
-  console.log('nothing here yet');
+  $.util.log('BUILD TASK NOT DEFINED');
 });

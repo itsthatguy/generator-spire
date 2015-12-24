@@ -1,3 +1,4 @@
+/* eslint no-unused-vars: [2, {"varsIgnorePattern": "^React"}] */
 import {Router, Route, IndexRoute} from 'react-router';
 import React    from 'react';
 import history  from '../lib/history';
@@ -12,6 +13,6 @@ let routes = (
 
     <IndexRoute component={Home}/>
   </Route>
-)
+);
 
 export default <Router history={history} routes={routes}/>;
