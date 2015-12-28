@@ -132,7 +132,6 @@ module.exports = SpireGenerator = yeoman.generators.Base.extend({
       this.fs.copy(this.templatePath('_react/src/lib'), this.destinationPath('src/lib'));
     }
 
-    console.log(this.config);
     if (this.config.deployGh) {
       processPackage.bind(this, 'package.deploy-gh.json')();
 
