@@ -7,8 +7,8 @@ npm install
 ```
 
 ### Running things
-```shell
-<% if (nwjs) { %># Running without nw.js (many features will break)<% } %>
+```shell<% if (nwjs) { %>
+# Running without nw.js (many features will break)<% } %>
 # Start the app for use in the browser
 $(npm bin)/gulp serve
 
