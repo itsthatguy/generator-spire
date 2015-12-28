@@ -24,7 +24,7 @@ module.exports = SpireGenerator = yeoman.generators.Base.extend({
   askFor: function() {
     var done = this.async();
 
-    this.log(chalk.magenta('You\'re using the fantastic adorable generator.'));
+    this.log(chalk.magenta('You\'re using the fantastic Spire generator.'));
 
     var generateChoices = ['react'];//, 'angular'];
     this.prompts.push({
@@ -143,10 +143,8 @@ module.exports = SpireGenerator = yeoman.generators.Base.extend({
   },
 
   end: function() {
-    this.options.callback = function() { return this.emit('allDone'); };
-    this.on('allDone', function() {
-      this.log(chalk.green('\n# Awesome. Everything generated just fine!'));
-    });
+    this.log(chalk.green('\n# Awesome. Everything generated just fine!' +
+                         '\n# Now open the README.md in this project folder, to get started.'));
   }
 
 });
