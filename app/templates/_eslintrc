@@ -14,11 +14,7 @@
     "React": true,
     "fetch": true,
     "CONFIG": true,
-    "environment": true,
-    "ADMIN_SCOPE": true,
-    "EDIT_SCOPE": true,
-    "LEGAL_SCOPE": true,
-    "VIP_SCOPE": true
+    "environment": true
   },
   "plugins": [
     "react"
