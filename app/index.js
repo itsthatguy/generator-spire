@@ -86,6 +86,7 @@ module.exports = SpireGenerator = yeoman.generators.Base.extend({
     this.fs.copy(this.templatePath('Gulpfile.js'), this.destinationPath('Gulpfile.js'));
     this.fs.copy(this.templatePath('Procfile'), this.destinationPath('Procfile'));
     this.fs.copy(this.templatePath('server.js'), this.destinationPath('server.js'));
+    this.fs.copy(this.templatePath('circle.yml'), this.destinationPath('circle.yml'));
     this.fs.copy(this.templatePath('mocks'), this.destinationPath('mocks'));
   },
 
