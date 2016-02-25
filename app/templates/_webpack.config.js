@@ -50,6 +50,17 @@ var environmentConfig = require(path.join(__dirname, 'src', 'config', 'environme
 environmentConfig.environment = environment;
 environmentConfig.docker = docker;
 
+function getLoader (name) {
+  return {
+    test: /\.jsx?$/,
+    exclude: /node_modules/,
+    loader: name,
+    query: {
+      presets: ['es2015', 'react']
+    }
+  };
+}
+
 module.exports = {
   devtool: '#inline-source-map',
   context: path.join(__dirname, 'src', 'app'),
@@ -74,15 +85,13 @@ module.exports = {
 
   module: {
     loaders: [
-      {
-        test: /\.(jsx|js)$/,
-        exclude: /node_modules/,
-        loaders: [<% if (react) { %>'react-hot', <% } %>'babel-loader']
-      }
+      // Note: order matters
+      getLoader('react-hot'),
+      getLoader('babel-loader')
     ]
   },
+
   resolve: {
     extensions: ['', '.js', '.jsx']
-  },
-
+  }
 };
