@@ -91,7 +91,6 @@ if (environment === 'development' && !docker) {
   plugins.push(new webpack.optimize.UglifyJsPlugin({minimize: true}));
 }
 
-
 module.exports = {
   devtool: devtool,
   context: path.join(__dirname, 'src', 'app'),
