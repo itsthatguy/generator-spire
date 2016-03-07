@@ -12,7 +12,10 @@ var vendorAssetsOther = [
 config.VENDOR_ASSETS = $.mainBowerFiles().concat(vendorAssetsOther, envAssets.vendor);
 
 config.assets = {
-  src: config.PROJECT_ROOT + '/src/**/*.{png,jpg,mp4,ttf,html,ico,svg}',
+  src: [
+    config.PROJECT_ROOT + '/src/**/*.{png,jpg,mp4,eot,svg,ttf,woff,html,ico,svg}',
+    config.PROJECT_ROOT + '/src/CNAME'
+  ],
   dest: config.DIST
 };
 
@@ -94,9 +97,9 @@ config.sass = {
     errLogToConsole: true,
     includePaths: [
       path.join(config.PROJECT_ROOT, '/src/app'),
-      path.join(config.PROJECT_ROOT, '/src/assets/stylesheets'),
-      path.join(config.PROJECT_ROOT, '/bower_components/foundation/scss'),
-      require('node-bourbon').includePaths
+      path.join(config.PROJECT_ROOT, '/src/assets/css'),
+      path.join(config.PROJECT_ROOT, '/bower_components/foundation/scss')
+    //   require('node-bourbon').includePaths
     ]
   }
 };
@@ -130,7 +133,7 @@ config.serve = {
 config.watch = {
   assets: {
     task: 'assets',
-    src: path.join(config.PROJECT_ROOT, '/src/**/*.{png,mp4,jpg,html,ttf,ico,svg}')
+    src: config.assets.src
   },
   assetsVendor: {
     task: 'assets:vendor',

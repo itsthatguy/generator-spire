@@ -52,7 +52,19 @@ var plugins = [
   })
 ];
 
-var jsLoaders = ['babel-loader'];
+function getLoader (name) {
+  return {
+    test: /\.jsx?$/,
+    exclude: /node_modules/,
+    loader: name,
+    query: {
+      presets: ['es2015', 'react']
+    }
+  };
+}
+
+var jsLoaders = [getLoader('babel-loader')];
+
 <% if (react) { %>
 plugins.push(
   new webpack.optimize.OccurenceOrderPlugin(),
@@ -70,11 +82,15 @@ if (environment === 'development' && !docker) {
   plugins.push(new webpack.HotModuleReplacementPlugin());
 
   // react-hot must be ordered before babel-loader
-  jsLoaders = ['react-hot', 'babel-loader'];
+  jsLoaders = [
+    getLoader('react-hot'),
+    getLoader('babel-loader')
+  ];
 <% } %>
 } else if (environment === 'production') {
   plugins.push(new webpack.optimize.UglifyJsPlugin({minimize: true}));
 }
+
 
 module.exports = {
   devtool: devtool,
@@ -91,17 +107,10 @@ module.exports = {
   plugins: plugins,
 
   module: {
-    loaders: [
-      {
-        test: /\.(jsx|js)$/,
-        exclude: /node_modules/,
-        loaders: jsLoaders
-      }
-    ]
+    loaders: jsLoaders
   },
 
   resolve: {
     extensions: ['', '.js', '.jsx']
-  },
-
+  }
 };

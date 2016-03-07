@@ -1,0 +1,12 @@
+machine:
+  node:
+    version: 4.1.1
+
+dependencies:
+  pre:
+    - npm uninstall gulp-sass node-sass --save
+    - npm install gulp-sass node-sass --save
+
+test:
+  pre:
+    - $(npm bin)/gulp lint
