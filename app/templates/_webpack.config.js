@@ -37,18 +37,20 @@ ForceCaseSensitivityPlugin.prototype.apply = function (compiler) {
   });
 };
 
-var entry = [];
-<% if (react) { %>
-if (environment === 'development' && !docker) {
-  entry = [
-    'webpack/hot/dev-server',
-    'webpack-hot-middleware/client'
-  ];
-}
-<% } %>
 var environmentConfig = require(path.join(__dirname, 'src', 'config', 'environment', environment + '.js'));
 environmentConfig.environment = environment;
 environmentConfig.docker = docker;
+
+var devtool;
+
+var entry = [];
+
+var plugins = [
+  new ForceCaseSensitivityPlugin(),
+  new webpack.DefinePlugin({
+    CONFIG: JSON.stringify(environmentConfig)
+  })
+];
 
 function getLoader (name) {
   return {
@@ -61,8 +63,36 @@ function getLoader (name) {
   };
 }
 
+var jsLoaders = [getLoader('babel-loader')];
+
+<% if (react) { %>
+plugins.push(
+  new webpack.optimize.OccurenceOrderPlugin(),
+  new webpack.NoErrorsPlugin()
+);
+<% } %>
+if (environment === 'development' && !docker) {
+  devtool = '#inline-source-map';
+<% if (react) { %>
+  entry = [
+    'webpack/hot/dev-server',
+    'webpack-hot-middleware/client'
+  ];
+
+  plugins.push(new webpack.HotModuleReplacementPlugin());
+
+  // react-hot must be ordered before babel-loader
+  jsLoaders = [
+    getLoader('react-hot'),
+    getLoader('babel-loader')
+  ];
+<% } %>
+} else if (environment === 'production') {
+  plugins.push(new webpack.optimize.UglifyJsPlugin({minimize: true}));
+}
+
 module.exports = {
-  devtool: '#inline-source-map',
+  devtool: devtool,
   context: path.join(__dirname, 'src', 'app'),
   output: {
     filename: '[name].js',
@@ -73,22 +103,10 @@ module.exports = {
 
   entry: entry.concat('./index.jsx'),
 
-  plugins: [
-    new ForceCaseSensitivityPlugin(),
-    new webpack.DefinePlugin({
-      CONFIG: JSON.stringify(environmentConfig)
-    })<% if (react) { %>,
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
-  <% } %>],
+  plugins: plugins,
 
   module: {
-    loaders: [
-      // Note: order matters
-      getLoader('react-hot'),
-      getLoader('babel-loader')
-    ]
+    loaders: jsLoaders
   },
 
   resolve: {
