@@ -5,7 +5,7 @@
   "description": "<%= projectDesc %>",
   "keywords": [],
   "scripts": {
-    "postinstall": "$(npm bin)/bower install && [[ $NODE_ENV = 'production' ]] && $(npm bin)/gulp",
+    "postinstall": "$(npm bin)/bower install && [[ $NODE_ENV = 'production' ]] && $(npm bin)/gulp || true",
     "start": "$(npm bin)/gulp serve",
     "test": "mocha"
   },
