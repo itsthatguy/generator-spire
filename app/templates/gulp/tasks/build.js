@@ -1,4 +1,5 @@
-/* global $ */
 gulp.task('build', ['default'], () => {
-  $.util.log('BUILD TASK NOT DEFINED');
+  var gUtil = require('gulp-util');
+
+  gUtil.log('BUILD TASK NOT DEFINED');
 });

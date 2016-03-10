@@ -1,4 +1,3 @@
-/* global config, $ */
 // run a server for development with browsersync
 var preTasks = (config.STANDALONE) ? ['watch', 'mock'] : ['watch'];
 
@@ -7,6 +6,7 @@ gulp.task('serve', preTasks, function() {
   var webpackHotMiddleware = require('webpack-hot-middleware');
   var proxyMiddleware = require('http-proxy-middleware');
   var historyApiFallback = require('connect-history-api-fallback');
+  var browserSync = require('browser-sync');
 
   var middlewares = [];
   if (config.STANDALONE) {
@@ -31,5 +31,5 @@ gulp.task('serve', preTasks, function() {
   );
 
   config.serve.browserSyncOptions.middleware = middlewares;
-  $.browserSync.init(config.serve.browserSyncOptions);
+  browserSync.init(config.serve.browserSyncOptions);
 });

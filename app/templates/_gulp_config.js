@@ -1,4 +1,5 @@
-/* global environment, path, $, config */
+var mainBowerFiles = require('main-bower-files');
+
 global.config = {};
 config.PROJECT_ROOT = path.join(__dirname, '..');
 config.DIST = path.join(config.PROJECT_ROOT, 'dist');
@@ -9,7 +10,7 @@ var envAssets = require('./environment/' + environment);
 var vendorAssetsOther = [
   path.join('bower_components', 'foundation-icon-fonts', '**/*.{eot,svg,ttf,woff}')
 ];
-config.VENDOR_ASSETS = $.mainBowerFiles().concat(vendorAssetsOther, envAssets.vendor);
+config.VENDOR_ASSETS = mainBowerFiles().concat(vendorAssetsOther, envAssets.vendor);
 
 config.assets = {
   src: [

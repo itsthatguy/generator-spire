@@ -1,6 +1,8 @@
-/* global config, $ */
 var eventStream = require('event-stream');
 var Hapi        = require('hapi');
+
+var watch = require('gulp-watch');
+var gUtil = require('gulp-util');
 
 var server;
 
@@ -28,7 +30,7 @@ function read (file) {
 
 function end () {
   server.start(() => {
-    $.util.log('Mock server running at:', server.info.uri);
+    gUtil.log('Mock server running at:', server.info.uri);
   });
 }
 
@@ -40,8 +42,8 @@ gulp.task('mock:routes', () => {
 });
 
 gulp.task('mock', ['mock:routes'], () => {
-  $.watch(`${config.PROJECT_ROOT}/mocks/**/*.js`, () => {
-    $.util.log('Restarting Mock server');
+  watch(`${config.PROJECT_ROOT}/mocks/**/*.js`, () => {
+    gUtil.log('Restarting Mock server');
     server.stop(() => {
       gulp.start('mock:routes');
     });

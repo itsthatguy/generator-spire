@@ -14,6 +14,9 @@
     "React": true,
     "fetch": true,
     "CONFIG": true,
+    "config": true,
+    "path": true,
+    "plumber": true,
     "environment": true
   },
   "plugins": [

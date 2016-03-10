@@ -1,15 +1,7 @@
 global.gulp = require('gulp');
 global.path = require('path');
+global.plumber = require('gulp-plumber');
 global.environment = process.env.NODE_ENV || 'development';
-
-global.$ = require('gulp-load-plugins')({
-  pattern: [
-    'gulp-*',
-    'del',
-    'main-bower-files',
-    'browser-sync',
-    'tosource']
-});
 
 require('./config');
 
