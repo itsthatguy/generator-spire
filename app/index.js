@@ -111,7 +111,7 @@ module.exports = SpireGenerator = yeoman.generators.Base.extend({
 
     processPackage.bind(this, 'package.json')();
 
-    this.fs.copyTpl(this.templatePath('_src_app_index.jade'), this.destinationPath('src/app/index.jade'), this.config);
+    this.fs.copyTpl(this.templatePath('_src_app_index.html'), this.destinationPath('src/app/index.html'), this.config);
     this.fs.copy(this.templatePath('src'), this.destinationPath('src'));
     this.fs.copy(this.templatePath('_react/__tests__'), this.destinationPath('__tests__'));
 

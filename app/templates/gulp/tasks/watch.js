@@ -12,7 +12,7 @@ gulp.task('watch', ['watch-pre-task'], function() {
 
   setupWatch(config.watch.assets.src,       config.watch.assets.task);
   setupWatch(config.watch.assetsVendor.src, config.watch.assetsVendor.task);
-  setupWatch(config.watch.jade.src,         config.watch.jade.task);
+  setupWatch(config.watch.html.src,         config.watch.html.task);
   setupWatch(config.watch.lintJs.src,       config.watch.lintJs.task);
   setupWatch(config.watch.sass.src,         config.watch.sass.task);
   setupWatch(config.watch.lintSass.src,     config.watch.lintSass.task);
