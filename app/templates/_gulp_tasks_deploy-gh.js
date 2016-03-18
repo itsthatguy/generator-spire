@@ -1,4 +1,4 @@
-/* global $, path, config */
+var ghPages = require('gulp-gh-pages');
 var fs = require('fs');
 
 gulp.task('deploy:gh', ['default'], () => {
@@ -8,6 +8,6 @@ gulp.task('deploy:gh', ['default'], () => {
   });
 
   return gulp.src(path.join(config.DIST, '/**/*'))
-  .pipe($.ghPages());
+  .pipe(ghPages());
 });
 

@@ -26,7 +26,6 @@
     "gulp-filter": "^2.0.2",
     "gulp-inject": "^1.2.0",
     "gulp-jade": "^1.0.0",
-    "gulp-load-plugins": "^0.10.0",
     "gulp-plumber": "^1.0.1",
     "gulp-postcss": "^6.0.1",
     "gulp-sass": "^2.0.1",

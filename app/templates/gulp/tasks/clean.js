@@ -1,5 +1,6 @@
-/* global $ */
 // Swab the deck!
 gulp.task('clean', function() {
-  return $.del.sync('dist/**/*');
+  var del = require('del');
+
+  return del.sync('dist/**/*');
 });
