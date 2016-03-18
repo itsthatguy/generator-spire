@@ -1,6 +1,6 @@
 {
   "name": "generator-spire",
-  "version": "0.1.8",
+  "version": "0.1.14",
   "description": "My preferred front-end setup",
   "main": "app/index.js",
   "scripts": {

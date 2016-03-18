@@ -82,7 +82,7 @@ config.sass = {
   filter: '**/*.css',
 
   inject: {
-    src: [path.join(config.PROJECT_ROOT, 'tmp/app/**/*.scss')],
+    src: [path.join(config.PROJECT_ROOT, 'src/app/**/*.scss')],
     options: {
       transform: function (filepath) {
         return '@import "' + filepath + '";';

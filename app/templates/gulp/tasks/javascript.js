@@ -1,7 +1,7 @@
 gulp.task('js', function() {
   var del = require('del');
   var browserSync = require('browser-sync');
-  var webpack = require('gulp-webpack');
+  var webpack = require('webpack-stream');
 
   del.sync('dist/main.js');
 
