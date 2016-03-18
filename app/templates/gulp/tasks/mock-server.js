@@ -1,8 +1,6 @@
 var eventStream = require('event-stream');
 var Hapi        = require('hapi');
-
-var watch = require('gulp-watch');
-var gUtil = require('gulp-util');
+var watch       = require('gulp-watch');
 
 var server;
 
@@ -30,7 +28,7 @@ function read (file) {
 
 function end () {
   server.start(() => {
-    gUtil.log('Mock server running at:', server.info.uri);
+    gutil.log('Mock server running at:', server.info.uri);
   });
 }
 
@@ -43,7 +41,7 @@ gulp.task('mock:routes', () => {
 
 gulp.task('mock', ['mock:routes'], () => {
   watch(`${config.PROJECT_ROOT}/mocks/**/*.js`, () => {
-    gUtil.log('Restarting Mock server');
+    gutil.log('Restarting Mock server');
     server.stop(() => {
       gulp.start('mock:routes');
     });

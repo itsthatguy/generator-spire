@@ -1,6 +1,7 @@
 global.gulp = require('gulp');
 global.path = require('path');
 global.plumber = require('gulp-plumber');
+global.gutil = require('gulp-util');
 global.environment = process.env.NODE_ENV || 'development';
 
 require('./config');
