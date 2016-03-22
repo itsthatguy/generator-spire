@@ -9,5 +9,5 @@ require('./config');
 var bulk = require('bulk-require');
 bulk(__dirname, ['./tasks/*']);
 
-gulp.task('watch-pre-task', ['clean', 'assets', 'sass', 'jade', 'assets:vendor', 'lint']);
+gulp.task('watch-pre-task', ['clean', 'assets', 'sass', 'html', 'assets:vendor', 'lint']);
 gulp.task('default', ['watch-pre-task', 'js']);

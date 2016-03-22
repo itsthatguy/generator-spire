@@ -5,17 +5,18 @@ config.PROJECT_ROOT = path.join(__dirname, '..');
 config.DIST = path.join(config.PROJECT_ROOT, 'dist');
 config.STANDALONE = process.env.STANDALONE === 'true';
 
-var envAssets = require('./environment/' + environment);
+config.env = require('./environment/' + environment);
 
 var vendorAssetsOther = [
   path.join('bower_components', 'foundation-icon-fonts', '**/*.{eot,svg,ttf,woff}')
 ];
-config.VENDOR_ASSETS = mainBowerFiles().concat(vendorAssetsOther, envAssets.vendor);
+config.VENDOR_ASSETS = mainBowerFiles().concat(vendorAssetsOther, config.env.vendor);
 
 config.assets = {
   src: [
-    config.PROJECT_ROOT + '/src/**/*.{png,jpg,mp4,eot,svg,ttf,woff,html,ico,svg}',
-    config.PROJECT_ROOT + '/src/CNAME'
+    `!${config.PROJECT_ROOT}/src/app/index.html`,
+    `${config.PROJECT_ROOT}/src/**/*.{png,jpg,mp4,eot,svg,ttf,woff,html,ico,svg}`,
+    `${config.PROJECT_ROOT}/src/CNAME`
   ],
   dest: config.DIST
 };
@@ -34,19 +35,39 @@ config.clean = {
   src: config.PROJECT_ROOT + '/dist/**/*'
 };
 
-config.jade = {
-  src: ['src/**/*.jade', '!src/app/index.jade'],
+config.html = {
+  src: ['src/**/*.html', '!src/app/index.html'],
   dest: config.DIST,
   options: {pretty: true},
   inject: {
-    src: path.join(config.PROJECT_ROOT + '/src/app/index.jade'),
-    options: {pretty: true},
+    src: path.join(config.PROJECT_ROOT + '/src/app/index.html'),
     head: {
       src: [],
       options: {
         name: 'head',
         addPrefix: '.',
-        addRootSlash: false
+        addRootSlash: false,
+        removeTags: true
+      }
+    },
+    googleAnalytics: {
+      src: gulp.src(['/dev/null'], {read: false}),
+      options: {
+        starttag: '<!-- inject:googleAnalytics -->',
+        endtag: '<!-- endinject -->',
+        removeTags: true,
+        transform: function () {
+          var analyticsCode = config.env.googleAnalyticsCode;
+          return `<script type='text/javascript'>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', '${analyticsCode}', 'auto');
+      ga('send', 'pageview');
+    </script>`;
+        }
       }
     },
     vendor: {
@@ -54,7 +75,8 @@ config.jade = {
       options: {
         name: 'vendor',
         addPrefix: '.',
-        addRootSlash: false
+        addRootSlash: false,
+        removeTags: true
       }
     }
   }
@@ -140,9 +162,9 @@ config.watch = {
     task: 'assets:vendor',
     src: config.PROJECT_ROOT + '/bower_components/*.{css,js}'
   },
-  jade: {
-    task: 'jade',
-    src: config.PROJECT_ROOT + '/src/**/*.jade'
+  html: {
+    task: 'html',
+    src: config.PROJECT_ROOT + '/src/**/*.html'
   },
   js: {
     task: 'js',

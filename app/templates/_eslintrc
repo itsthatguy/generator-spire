@@ -8,16 +8,17 @@
     "modules": true
   },
   "globals": {
-    "document": true,
-    "window": true,
-    "gulp": true,
-    "React": true,
-    "fetch": true,
     "CONFIG": true,
+    "React": true,
     "config": true,
+    "document": true,
+    "environment": true,
+    "fetch": true,
+    "gulp": true,
+    "gutil": true,
     "path": true,
     "plumber": true,
-    "environment": true
+    "window": true
   },
   "plugins": [
     "react"
