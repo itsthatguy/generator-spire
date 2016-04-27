@@ -36,7 +36,7 @@ config.clean = {
 };
 
 config.html = {
-  src: ['src/**/*.html', '!src/app/index.html'],
+  src: 'src/app/index.html',
   dest: config.DIST,
   options: {pretty: true},
   inject: {
