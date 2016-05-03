@@ -36,7 +36,7 @@ config.clean = {
 };
 
 config.html = {
-  src: ['src/**/*.html', '!src/app/index.html'],
+  src: 'src/app/index.html',
   dest: config.DIST,
   options: {pretty: true},
   inject: {
@@ -104,7 +104,10 @@ config.sass = {
   filter: '**/*.css',
 
   inject: {
-    src: [path.join(config.PROJECT_ROOT, 'src/app/**/*.scss')],
+    src: [
+      path.join(`!${config.PROJECT_ROOT}`, 'src/app/index.scss'),
+      path.join(config.PROJECT_ROOT, 'src/app/**/*.scss')
+    ],
     options: {
       transform: function (filepath) {
         return '@import "' + filepath + '";';
