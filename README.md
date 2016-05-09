@@ -40,3 +40,13 @@ cd <your_project>
 yo spire
 # Open the README.md for the project that you just generated
 ```
+
+### Updating Spire
+
+To update Spire simply run the command below.
+
+```bash
+npm install -g generator-spire
+```
+
+That's it, you have the latest version of Spire.
