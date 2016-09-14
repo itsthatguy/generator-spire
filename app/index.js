@@ -6,7 +6,7 @@ var SpireGenerator,
     path    = require('path'),
     merge   = require('lodash').merge;
 
-module.exports = SpireGenerator = yeoman.generators.Base.extend({
+module.exports = SpireGenerator = yeoman.Base.extend({
   constructor: function() {
     yeoman.generators.Base.apply(this, arguments);
   },
@@ -21,53 +21,63 @@ module.exports = SpireGenerator = yeoman.generators.Base.extend({
     }
   },
 
-  askFor: function() {
-    var done = this.async();
-
+  askFor: function () {
+    var self = this;
     this.log(chalk.magenta('You\'re using the fantastic Spire generator.'));
 
-    var generateChoices = ['react'];//, 'angular'];
-    this.prompts.push({
+    return this.prompt([{
       name: 'generate',
       type: 'list',
       message: 'What kind of app would you like to generate?',
-      choices: generateChoices
-    });
-    this.prompts.push({
-      name: 'nwjs',
-      type: 'confirm',
-      message: 'Is this an nw.js project?',
-      default: false
-    });
-    this.prompts.push({
-      name: 'projectName',
-      type: 'input',
-      message: 'What is the name of your project? (no spaces, or symbols)',
-      default: process.cwd().split(path.sep).pop()
-    });
-    this.prompts.push({
-      name: 'projectDesc',
-      type: 'input',
-      message: 'Enter a brief project description'
-    });
-    this.prompts.push({
-      name: 'deployGh',
-      type: 'confirm',
-      message: 'Will this application be deployed to gh-pages?',
-      default: false
-    });
-
-    var self = this;
-    generateChoices.forEach(function(choice) {
-      self.config[choice] = false;
-    });
-    this.prompt(this.prompts, function(answers) {
+      choices: [
+        'react',
+        // 'static',
+      ],
+    }])
+    .then((generateAnswers) => {
+      if (generateAnswers.generate === 'react') {
+        return this.prompt([{
+          name: 'flux',
+          type: 'list',
+          message: 'Which Flux implementation would you like to generate?',
+          choices: ['alt', 'redux'],
+        }]).then((fluxAnswers) => {
+          return Promise.resolve(merge(generateAnswers, fluxAnswers));
+        });
+      }
+      return Promise.resolve(generateAnswers);
+    })
+    .then((previousAnswers) => {
+      return this.prompt([{
+        name: 'nwjs',
+        type: 'confirm',
+        message: 'Is this an nw.js project?',
+        default: false
+      }, {
+        name: 'projectName',
+        type: 'input',
+        message: 'What is the name of your project? (no spaces, or symbols)',
+        default: process.cwd().split(path.sep).pop()
+      }, {
+        name: 'projectDesc',
+        type: 'input',
+        message: 'Enter a brief project description'
+      }, {
+        name: 'deployGh',
+        type: 'confirm',
+        message: 'Will this application be deployed to gh-pages?',
+        default: false
+      }])
+      .then(function(answers) {
+        return Promise.resolve(merge(previousAnswers, answers));
+      });
+    })
+    .then((answers) => {
       var answer, question;
       for (question in answers) {
         answer = answers[question];
         self.config[question] = answer;
       }
-      return done();
     });
   },
 
@@ -91,7 +101,7 @@ module.exports = SpireGenerator = yeoman.generators.Base.extend({
     this.fs.copy(this.templatePath('mocks'), this.destinationPath('mocks'));
 
     if (this.config.react) {
-      this.fs.copy(this.templatePath('_react/babelrc'), this.destinationPath('.babelrc'));
+      this.fs.copy(this.templatePath(`_react/_${this.config.flux}/babelrc`), this.destinationPath('.babelrc'));
     } else {
       this.fs.copy(this.templatePath('babelrc'), this.destinationPath('.babelrc'));
     }
@@ -119,7 +129,7 @@ module.exports = SpireGenerator = yeoman.generators.Base.extend({
 
     this.fs.copyTpl(this.templatePath('_src_app_index.html'), this.destinationPath('src/app/index.html'), this.config);
     this.fs.copy(this.templatePath('src'), this.destinationPath('src'));
-    this.fs.copy(this.templatePath('_react/__tests__'), this.destinationPath('__tests__'));
+    this.fs.copy(this.templatePath(`_react/_${this.config.flux}/__tests__`), this.destinationPath('__tests__'));
 
     // if (this.config.angular) {
     //   processPackage.bind(this, 'package.angular.json')();
@@ -133,10 +143,12 @@ module.exports = SpireGenerator = yeoman.generators.Base.extend({
     // }
 
     if (this.config.react) {
+      var reactPath = path.join('_react', `_${this.config.flux}`);
+
       processPackage.bind(this, 'package.react.json')();
 
-      this.fs.copy(this.templatePath('_react/src/app'), this.destinationPath('src/app'));
-      this.fs.copy(this.templatePath('_react/src/lib'), this.destinationPath('src/lib'));
+      this.fs.copy(this.templatePath(path.join(reactPath, 'src/app')), this.destinationPath('src/app'));
+      this.fs.copy(this.templatePath(path.join(reactPath, 'src/lib')), this.destinationPath('src/lib'));
     }
 
     if (this.config.deployGh) {
