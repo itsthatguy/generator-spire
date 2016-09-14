@@ -1,1 +1,1 @@
-gulp.task('lint', ['lint-js', 'lint-sass']);
+gulp.task('lint', ['lint:js', 'lint:sass']);

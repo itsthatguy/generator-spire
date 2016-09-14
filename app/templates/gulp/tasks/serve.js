@@ -1,13 +1,33 @@
 // run a server for development with browsersync
+import webpack              from 'webpack';
+import webpackDevMiddleware from 'webpack-dev-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
+import proxyMiddleware      from 'http-proxy-middleware';
+import historyApiFallback   from 'connect-history-api-fallback';
+import browserSync          from 'browser-sync';
+import {JS}                 from './javascript';
+
+const SERVE = {
+  bundler: webpack(JS.webpackOptions),
+  browserSyncOptions: {
+    open: false,
+    https: false,
+    server: {
+      baseDir: config.DIST,
+      routes: {
+        '/bower_components': 'bower_components'
+      },
+    },
+    files: [
+      'app/css/*.css',
+      'app/*.html'
+    ]
+  }
+};
+
 var preTasks = (config.STANDALONE) ? ['watch', 'mock'] : ['watch'];
 
 gulp.task('serve', preTasks, function() {
-  var webpackDevMiddleware = require('webpack-dev-middleware');
-  var webpackHotMiddleware = require('webpack-hot-middleware');
-  var proxyMiddleware = require('http-proxy-middleware');
-  var historyApiFallback = require('connect-history-api-fallback');
-  var browserSync = require('browser-sync');
-
   var middlewares = [];
   if (config.STANDALONE) {
     middlewares.push(proxyMiddleware('/api/**/*', {
@@ -22,14 +42,14 @@ gulp.task('serve', preTasks, function() {
   }
 
   middlewares.push(
-    webpackDevMiddleware(config.js.bundler, {
-      publicPath: config.js.webpackOptions.output.publicPath,
+    webpackDevMiddleware(SERVE.bundler, {
+      publicPath: JS.webpackOptions.output.publicPath,
       stats: {colors: true}
     }),
-    webpackHotMiddleware(config.js.bundler),
+    webpackHotMiddleware(SERVE.bundler),
     historyApiFallback()
   );
 
-  config.serve.browserSyncOptions.middleware = middlewares;
-  browserSync.init(config.serve.browserSyncOptions);
+  SERVE.browserSyncOptions.middleware = middlewares;
+  browserSync.init(SERVE.browserSyncOptions);
 });

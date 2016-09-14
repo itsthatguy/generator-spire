@@ -3,6 +3,7 @@
 
 ### Getting Started
 ```shell
+nvm use
 npm install
 ```
 

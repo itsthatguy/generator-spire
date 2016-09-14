@@ -1,13 +1,19 @@
+import del         from 'del';
+import browserSync from 'browser-sync';
+import webpack     from 'webpack-stream';
+
+export const JS = {
+  src: path.join(config.PROJECT_ROOT, 'src/app/index.{jsx,js}'),
+  dest: config.DIST,
+  webpackOptions: require(path.join(config.PROJECT_ROOT, 'webpack.config.js')),
+};
+
 gulp.task('js', function() {
-  var del = require('del');
-  var browserSync = require('browser-sync');
-  var webpack = require('webpack-stream');
+  del.sync(path.join(config.DIST, '/main.js'));
 
-  del.sync('dist/main.js');
-
-  return gulp.src(config.js.src)
+  return gulp.src(JS.src)
   .pipe(plumber())
-  .pipe(webpack(config.js.webpackOptions))
-  .pipe(gulp.dest(config.js.dest))
+  .pipe(webpack(JS.webpackOptions))
+  .pipe(gulp.dest(JS.dest))
   .pipe(browserSync.reload({stream:true}));
 });

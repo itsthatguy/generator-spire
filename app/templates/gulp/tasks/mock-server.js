@@ -1,6 +1,6 @@
-var eventStream = require('event-stream');
-var Hapi        = require('hapi');
-var watch       = require('gulp-watch');
+import eventStream from 'event-stream';
+import Hapi        from 'hapi';
+import watch       from 'gulp-watch';
 
 var server;
 
