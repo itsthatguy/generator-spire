@@ -10,7 +10,8 @@
     "test": "mocha"
   },
   "dependencies": {
-    "reqwest": "^2.0.5"
+    "reqwest": "^2.0.5",
+    "babel-register": "^6.14.0"
   },
   "devDependencies": {
     "event-stream": "^3.3.2",

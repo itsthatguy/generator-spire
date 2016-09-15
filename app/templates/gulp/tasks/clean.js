@@ -1,6 +1,6 @@
+import del from 'del';
+
 // Swab the deck!
 gulp.task('clean', function() {
-  var del = require('del');
-
-  return del.sync('dist/**/*');
+  return del.sync(`${config.PROJECT_ROOT}/dist/**/*`);
 });

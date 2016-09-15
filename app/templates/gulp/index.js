@@ -4,10 +4,14 @@ global.plumber = require('gulp-plumber');
 global.gutil = require('gulp-util');
 global.environment = process.env.NODE_ENV || 'development';
 
-require('./config');
+global.config = {};
+config.PROJECT_ROOT = path.join(__dirname, '..');
+config.DIST = path.join(config.PROJECT_ROOT, 'dist');
+config.STANDALONE = process.env.STANDALONE === 'true';
 
-var bulk = require('bulk-require');
+config.env = require('./environment/' + environment);
+
+import bulk from 'bulk-require';
 bulk(__dirname, ['./tasks/*']);
 
-gulp.task('watch-pre-task', ['clean', 'assets', 'sass', 'html', 'assets:vendor', 'lint']);
 gulp.task('default', ['watch-pre-task', 'js']);

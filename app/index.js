@@ -82,17 +82,23 @@ module.exports = SpireGenerator = yeoman.generators.Base.extend({
     this.fs.copyTpl(this.templatePath('_eslintrc'), this.destinationPath('.eslintrc'), this.config);
     this.fs.copyTpl(this.templatePath('_sasslint.js'), this.destinationPath('.sasslint.js'), this.config);
     this.fs.copyTpl(this.templatePath('_webpack.config.js'), this.destinationPath('webpack.config.js'), this.config);
+    this.fs.copy(this.templatePath('nvmrc'), this.destinationPath('.nvmrc'));
     this.fs.copy(this.templatePath('gitignore'), this.destinationPath('.gitignore'));
     this.fs.copy(this.templatePath('Gulpfile.js'), this.destinationPath('Gulpfile.js'));
     this.fs.copy(this.templatePath('Procfile'), this.destinationPath('Procfile'));
     this.fs.copy(this.templatePath('server.js'), this.destinationPath('server.js'));
     this.fs.copy(this.templatePath('circle.yml'), this.destinationPath('circle.yml'));
     this.fs.copy(this.templatePath('mocks'), this.destinationPath('mocks'));
+
+    if (this.config.react) {
+      this.fs.copy(this.templatePath('_react/babelrc'), this.destinationPath('.babelrc'));
+    } else {
+      this.fs.copy(this.templatePath('babelrc'), this.destinationPath('.babelrc'));
+    }
   },
 
   gulpfiles: function() {
     this.fs.copyTpl(this.templatePath('Gulpfile.js'), this.destinationPath('Gulpfile.js'), this.config);
-    this.fs.copyTpl(this.templatePath('_gulp_config.js'), this.destinationPath('gulp/config.js'));
     this.fs.copy(this.templatePath('gulp'), this.destinationPath('gulp'));
   },
 
