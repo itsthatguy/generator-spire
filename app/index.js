@@ -1,14 +1,16 @@
 'use strict';
 
-var SpireGenerator,
-    yeoman  = require('yeoman-generator'),
-    chalk   = require('chalk'),
-    path    = require('path'),
-    merge   = require('lodash').merge;
+var chalk  = require('chalk');
+var merge  = require('lodash').merge;
+var npm    = new require('npm-api')();
+var path   = require('path');
+var yeoman = require('yeoman-generator');
 
+var SpireGenerator;
 module.exports = SpireGenerator = yeoman.Base.extend({
   constructor: function() {
     yeoman.generators.Base.apply(this, arguments);
+    this.option('force');
   },
 
   init: function() {
@@ -19,6 +21,26 @@ module.exports = SpireGenerator = yeoman.Base.extend({
     } catch (error) {
       this.config = {};
     }
+  },
+
+  versionCheck: function () {
+    if (this.options.force) { return; }
+
+    var repo = npm.repo('generator-spire');
+    repo.package('latest')
+    .then((data) => {
+      var latestVersion = data.version;
+      var localVersion = require('../package.json').version
+      if (localVersion < latestVersion) {
+        this.log(chalk.red(
+          `\nThe version of Spire you have installed (${localVersion}) is ` +
+          `behind the latest version (${latestVersion}).\nPlease update ` +
+          `your version of Spire!\n\nTo generate a project with your ` +
+          `currently installed version, run\n    yo spire --force`
+        ));
+       this.env.error('Old version, exiting.');
+      }
+    })
   },
 
   askFor: function () {
