@@ -111,7 +111,6 @@ module.exports = SpireGenerator = yeoman.Base.extend({
 
     this.fs.copyTpl(this.templatePath('_bower.json'), this.destinationPath('bower.json'), this.config);
     this.fs.copyTpl(this.templatePath('_README.md'), this.destinationPath('README.md'), this.config);
-    this.fs.copyTpl(this.templatePath('_eslintrc'), this.destinationPath('.eslintrc'), this.config);
     this.fs.copyTpl(this.templatePath('_sasslint.js'), this.destinationPath('.sasslint.js'), this.config);
     this.fs.copyTpl(this.templatePath('_webpack.config.js'), this.destinationPath('webpack.config.js'), this.config);
     this.fs.copy(this.templatePath('nvmrc'), this.destinationPath('.nvmrc'));
@@ -126,6 +125,16 @@ module.exports = SpireGenerator = yeoman.Base.extend({
       this.fs.copy(this.templatePath(`_react/_${this.config.flux}/babelrc`), this.destinationPath('.babelrc'));
     } else {
       this.fs.copy(this.templatePath('babelrc'), this.destinationPath('.babelrc'));
+    }
+
+    if (this.config.react && this.config.flux === 'redux') {
+      var contents = merge(
+        this.fs.readJSON(this.templatePath('_eslintrc')),
+        this.fs.readJSON(this.templatePath('_react/_redux/_eslintrc'))
+      );
+      this.fs.writeJSON(this.destinationPath('.eslintrc'), contents);
+    } else {
+      this.fs.copyTpl(this.templatePath('_eslintrc'), this.destinationPath('.eslintrc'), this.config);
     }
   },
 
