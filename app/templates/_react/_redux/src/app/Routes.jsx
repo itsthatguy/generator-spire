@@ -1,18 +1,14 @@
-/* eslint no-unused-vars: [2, {"varsIgnorePattern": "^React"}] */
-import {Router, Route, IndexRoute} from 'react-router';
-import React    from 'react';
-import history  from '../lib/history';
+/* eslint no-unused-vars: [2, {"varsIgnorePattern": "^(React|root)"}] */
+import React from 'react';
 
-import App      from './App';
+import {Route} from 'react-router';
+
 import Home     from './Home/Home';
+import {setTitle} from './actions/home';
 
-// declare our routes and their hierarchy
-let routes = (
-  <Route path="/" component={App}>
-    <Route path="home" component={Home}/>
+function foo () {
+  console.log('foo');
+}
 
-    <IndexRoute component={Home}/>
-  </Route>
-);
-
-export default <Router history={history} routes={routes}/>;
+// Export only the <Route>'s and define the Provider & Router in client & server
+export default <Route path='/' component={Home} />;

@@ -104,38 +104,38 @@ module.exports = SpireGenerator = yeoman.Base.extend({
   },
 
   projectfiles: function() {
+    var createEslintrcFile = (framework) => {
+      if (framework === 'redux') {
+        var contents = merge(
+          this.fs.readJSON(this.templatePath('_eslintrc')),
+          this.fs.readJSON(this.templatePath('_react/_redux/_eslintrc'))
+        );
+        this.fs.writeJSON(this.destinationPath('.eslintrc'), contents);
+      } else {
+        this.fs.copyTpl(this.templatePath('_eslintrc'), this.destinationPath('.eslintrc'), this.config);
+      }
+    }
+
     this.config[this.config.generate] = true;
 
-    // temporary for the removal of angular
-    this.config.angular = false;
+    this.config.angular = false;  // temporary for the removal of angular
+    this.config.nodeVersion = '5.6';
+    var reactPath = this.config.react ? path.join('_react', `_${this.config.flux}`) : '';
 
+    createEslintrcFile(this.config.flux);
+    this.config.babelRc = this.fs.read(this.templatePath(path.join(reactPath, 'babelrc')));
+    this.fs.copy(this.templatePath(path.join(reactPath, 'babelrc')), this.destinationPath('.babelrc'));
+    this.fs.copy(this.templatePath(path.join(reactPath, 'server.js')), this.destinationPath('server.js'));
     this.fs.copyTpl(this.templatePath('_bower.json'), this.destinationPath('bower.json'), this.config);
     this.fs.copyTpl(this.templatePath('_README.md'), this.destinationPath('README.md'), this.config);
     this.fs.copyTpl(this.templatePath('_sasslint.js'), this.destinationPath('.sasslint.js'), this.config);
     this.fs.copyTpl(this.templatePath('_webpack.config.js'), this.destinationPath('webpack.config.js'), this.config);
+    this.fs.copyTpl(this.templatePath('_circle.yml'), this.destinationPath('circle.yml'), this.config);
     this.fs.copy(this.templatePath('nvmrc'), this.destinationPath('.nvmrc'));
     this.fs.copy(this.templatePath('gitignore'), this.destinationPath('.gitignore'));
     this.fs.copy(this.templatePath('Gulpfile.js'), this.destinationPath('Gulpfile.js'));
     this.fs.copy(this.templatePath('Procfile'), this.destinationPath('Procfile'));
-    this.fs.copy(this.templatePath('server.js'), this.destinationPath('server.js'));
-    this.fs.copy(this.templatePath('circle.yml'), this.destinationPath('circle.yml'));
     this.fs.copy(this.templatePath('mocks'), this.destinationPath('mocks'));
-
-    if (this.config.react) {
-      this.fs.copy(this.templatePath(`_react/_${this.config.flux}/babelrc`), this.destinationPath('.babelrc'));
-    } else {
-      this.fs.copy(this.templatePath('babelrc'), this.destinationPath('.babelrc'));
-    }
-
-    if (this.config.react && this.config.flux === 'redux') {
-      var contents = merge(
-        this.fs.readJSON(this.templatePath('_eslintrc')),
-        this.fs.readJSON(this.templatePath('_react/_redux/_eslintrc'))
-      );
-      this.fs.writeJSON(this.destinationPath('.eslintrc'), contents);
-    } else {
-      this.fs.copyTpl(this.templatePath('_eslintrc'), this.destinationPath('.eslintrc'), this.config);
-    }
   },
 
   gulpfiles: function() {
@@ -143,27 +143,18 @@ module.exports = SpireGenerator = yeoman.Base.extend({
     this.fs.copy(this.templatePath('gulp'), this.destinationPath('gulp'));
   },
 
-  srcfiles: function() {
-    var pkgPath = this.templatePath('_package.json');
+  packageFiles: function () {
     var pkgDestPath = this.destinationPath('package.json');
-    var pkg = this.fs.readJSON(pkgPath);
 
-    function processPackage (file) {
-      var contents = this.fs.readJSON(this.templatePath(`_${file}`));
-      var destPath = this.destinationPath(file);
-      pkg = merge(pkg, contents);
-      this.fs.writeJSON(pkgDestPath, pkg);
-      return destPath;
-    }
+    var processPackage = (file) => {
+      var contents = this.fs.readJSON(this.templatePath(`${file}`));
+      this.fs.extendJSON(pkgDestPath, contents);
+    };
 
-    processPackage.bind(this, 'package.json')();
-
-    this.fs.copyTpl(this.templatePath('_src_app_index.html'), this.destinationPath('src/app/index.html'), this.config);
-    this.fs.copy(this.templatePath('src'), this.destinationPath('src'));
-    this.fs.copy(this.templatePath(`_react/_${this.config.flux}/__tests__`), this.destinationPath('__tests__'));
+    processPackage('_package.json');
 
     // if (this.config.angular) {
-    //   processPackage.bind(this, 'package.angular.json')();
+    //   processPackage('package.angular.json');
 
     //   this.fs.copy(this.templatePath('_angular/src/app'), this.destinationPath('src/app'));
     //   this.fs.copyTpl(this.templatePath('_angular_src/_src_app_components_data_data.js'), this.destinationPath('src/app/components/data/data.js'), this.config);
@@ -176,20 +167,34 @@ module.exports = SpireGenerator = yeoman.Base.extend({
     if (this.config.react) {
       var reactPath = path.join('_react', `_${this.config.flux}`);
 
-      processPackage.bind(this, 'package.react.json')();
+      processPackage('_package.react.json');
+      processPackage(path.join(reactPath, '_package.json'));
+    }
+
+    this.fs.copyTpl(pkgDestPath, pkgDestPath, this.config);
+  },
+
+  srcfiles: function() {
+    this.fs.copyTpl(this.templatePath('_src_app_index.html'), this.destinationPath('src/app/index.html'), this.config);
+    this.fs.copy(this.templatePath('src'), this.destinationPath('src'));
+    this.fs.copy(this.templatePath(`_react/__tests__`), this.destinationPath('__tests__'));
+
+    if (this.config.react) {
+      var reactPath = path.join('_react', `_${this.config.flux}`);
 
       this.fs.copy(this.templatePath(path.join(reactPath, 'src/app')), this.destinationPath('src/app'));
       this.fs.copy(this.templatePath(path.join(reactPath, 'src/lib')), this.destinationPath('src/lib'));
+
+      if (this.config.flux === 'redux') {
+        this.fs.copy(this.templatePath(path.join(reactPath, 'src/config')), this.destinationPath('src/config'));
+      }
     }
 
     if (this.config.deployGh) {
-      processPackage.bind(this, 'package.deploy-gh.json')();
+      processPackage('package.deploy-gh.json');
 
       this.fs.copyTpl(this.templatePath('_gulp_tasks_deploy-gh.js'), this.destinationPath('gulp/tasks/deploy-gh.js'));
     }
-
-    var destPath = this.destinationPath('package.json');
-    this.fs.copyTpl(destPath, destPath, this.config);
   },
 
   end: function() {
