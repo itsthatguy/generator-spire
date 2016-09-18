@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "alt": "^0.17.8",
     "autoprefixer": "^6.2.3",
     "babel-core": "^6.5.2",
     "babel-jest": "^6.0.1",
