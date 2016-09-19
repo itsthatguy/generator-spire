@@ -41,6 +41,10 @@ gulp.task('serve', preTasks, function() {
     }));
   }
 
+  <% if (flux === 'redux' ) { %>
+  middlewares.push(require('../../src/lib/reactReduxMiddleware'));
+  <% } %>
+
   middlewares.push(
     webpackDevMiddleware(SERVE.bundler, {
       publicPath: JS.webpackOptions.output.publicPath,

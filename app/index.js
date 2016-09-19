@@ -9,7 +9,7 @@ var yeoman = require('yeoman-generator');
 var SpireGenerator;
 module.exports = SpireGenerator = yeoman.Base.extend({
   constructor: function() {
-    yeoman.generators.Base.apply(this, arguments);
+    yeoman.Base.apply(this, arguments);
     this.option('force');
   },
 
@@ -57,6 +57,7 @@ module.exports = SpireGenerator = yeoman.Base.extend({
       ],
     }])
     .then((generateAnswers) => {
+      this.log('HERE!');
       if (generateAnswers.generate === 'react') {
         return this.prompt([{
           name: 'flux',
@@ -119,7 +120,7 @@ module.exports = SpireGenerator = yeoman.Base.extend({
     this.config[this.config.generate] = true;
 
     this.config.angular = false;  // temporary for the removal of angular
-    this.config.nodeVersion = '5.6';
+    this.config.nodeVersion = '6.5';
     var reactPath = this.config.react ? path.join('_react', `_${this.config.flux}`) : '';
 
     createEslintrcFile(this.config.flux);
@@ -140,7 +141,7 @@ module.exports = SpireGenerator = yeoman.Base.extend({
 
   gulpfiles: function() {
     this.fs.copyTpl(this.templatePath('Gulpfile.js'), this.destinationPath('Gulpfile.js'), this.config);
-    this.fs.copy(this.templatePath('gulp'), this.destinationPath('gulp'));
+    this.fs.copyTpl(this.templatePath('gulp'), this.destinationPath('gulp'), this.config);
   },
 
   packageFiles: function () {

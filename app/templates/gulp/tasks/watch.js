@@ -22,7 +22,7 @@ const WATCH = {
     src: path.join(config.PROJECT_ROOT, 'src/**/*.{jsx,js}')
   },
   lintJs: {
-    task: 'lint-js',
+    task: 'lint:js',
     src: require('./lint-js').LINT_JS.src
   },
   sass: {
@@ -30,7 +30,7 @@ const WATCH = {
     src: path.join(config.PROJECT_ROOT, 'src/**/*.scss')
   },
   lintSass: {
-    task: 'lint-sass',
+    task: 'lint:sass',
     src: path.join(config.PROJECT_ROOT, 'src/**/*.scss')
   }
 };
