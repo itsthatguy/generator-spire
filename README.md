@@ -32,7 +32,9 @@ npm link
 
 ### Finally, using the generator:
 
-Create a directory for the project that you will generate into
+1. Make sure your environment is outfitted with Node v5 or better. (e.g.
+`nvm use 5`).
+2. Create a directory for the project that you will generate into.
 
 ```bash
 mkdir <your_project>
