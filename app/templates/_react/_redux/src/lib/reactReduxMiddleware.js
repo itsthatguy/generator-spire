@@ -23,36 +23,38 @@ const HTML = ({ content, store }) => {
   )
 };
 
-export const reactReduxMiddleware = async function (request, response, next) {
-  let initialState = {
-    home: await homeInitialState()
-  };
+export const reactReduxMiddleware = function () {
+  return async function (request, response, next) {
+    let initialState = {
+      home: await homeInitialState()
+    };
 
-  const memoryHistory = createMemoryHistory(request.url);
-  const store = configureStore(memoryHistory, initialState);
-  const history = syncHistoryWithStore(memoryHistory, store);
+    const memoryHistory = createMemoryHistory(request.url);
+    const store = configureStore(memoryHistory, initialState);
+    const history = syncHistoryWithStore(memoryHistory, store);
 
-  match({history, routes, location: request.url}, (error, redirectLocation, renderProps) => {
-    if (error) {
-      response.statusCode = 500;
-      response.write(error.message);
-    } else if (redirectLocation) {
-      response.writeHead(302, {
-        Location: redirectLocation.pathname + redirectLocation.search
-      });
-    } else if (renderProps) {
-      let content = renderToString(
-        <Provider store={store}>
-          <RouterContext {...renderProps} />
-        </Provider>
-      );
+    match({history, routes, location: request.url}, (error, redirectLocation, renderProps) => {
+      if (error) {
+        response.statusCode = 500;
+        response.write(error.message);
+      } else if (redirectLocation) {
+        response.writeHead(302, {
+          Location: redirectLocation.pathname + redirectLocation.search
+        });
+      } else if (renderProps) {
+        let content = renderToString(
+          <Provider store={store}>
+            <RouterContext {...renderProps} />
+          </Provider>
+        );
 
-      response.write('<!doctype html>\n' + renderToString(<HTML content={content} store={store}/>));
-    } else {
-      response.statusCode = 404;
-      response.write('Not found');
-    }
-    response.end();
-  });
+        response.write('<!doctype html>\n' + renderToString(<HTML content={content} store={store}/>));
+      } else {
+        response.statusCode = 404;
+        response.write('Not found');
+      }
+      response.end();
+    });
+  }
 };
 

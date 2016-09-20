@@ -38,4 +38,4 @@ if (isProduction && !isTestingIso) {
 
 app.listen(appListenPort, developmentCallback);
 
-app.use(reactReduxMiddleware);
+app.use(reactReduxMiddleware());
