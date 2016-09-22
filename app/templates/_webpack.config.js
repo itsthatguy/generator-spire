@@ -57,9 +57,7 @@ function getLoader (name) {
     test: /\.jsx?$/,
     exclude: /node_modules/,
     loader: name,
-    query: {
-      presets: ['es2015', 'react']
-    }
+    query: <%- babelRc %>
   };
 }
 

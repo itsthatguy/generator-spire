@@ -6,6 +6,9 @@ import proxyMiddleware      from 'http-proxy-middleware';
 import historyApiFallback   from 'connect-history-api-fallback';
 import browserSync          from 'browser-sync';
 import {JS}                 from './javascript';
+<% if (flux === 'redux') { %>
+import {reactReduxMiddleware} from '../../src/lib/reactReduxMiddleware';
+<% } %>
 
 const SERVE = {
   bundler: webpack(JS.webpackOptions),
@@ -46,8 +49,9 @@ gulp.task('serve', preTasks, function() {
       publicPath: JS.webpackOptions.output.publicPath,
       stats: {colors: true}
     }),
-    webpackHotMiddleware(SERVE.bundler),
-    historyApiFallback()
+    webpackHotMiddleware(SERVE.bundler),<% if (flux === 'redux') { %>
+    reactReduxMiddleware(),
+    <% } %>historyApiFallback()
   );
 
   SERVE.browserSyncOptions.middleware = middlewares;

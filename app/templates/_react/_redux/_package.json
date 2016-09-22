@@ -1,0 +1,39 @@
+{
+  "scripts": {
+    "start": "$(npm bin)/babel-node server.js"
+  },
+  "dependencies": {
+    "async-props": "^0.3.2",
+    "axios": "^0.11.0",
+    "babel-cli": "^6.6.5",
+    "babel-preset-stage-0": "^6.5.0",
+    "babel-preset-stage-2": "^6.5.0",
+    "babel-runtime": "^6.11.6",
+    "ejs": "^2.4.1",
+    "eslint": "^2.13.0",
+    "eslint-plugin-react": "^2.7.1",
+    "query-string": "^4.1.0",
+    "react": "^15.0.2",
+    "react-addons-test-utils": "^15.0.2",
+    "react-dom": "^15.0.2",
+    "react-redux": "^4.4.5",
+    "react-router": "^2.4.1",
+    "react-router-redux": "^4.0.4",
+    "redux": "^3.5.2",
+    "redux-await": "^5.0.1",
+    "redux-devtools": "^3.3.1",
+    "redux-devtools-dock-monitor": "^1.1.1",
+    "redux-devtools-log-monitor": "^1.0.11",
+    "redux-promise": "^0.5.3",
+    "redux-thunk": "^2.1.0",
+    "redux-wait": "0.0.3",
+    "superagent": "^2.2.0",
+    "webpack-stream": "^3.1.0",
+    "window-or-global": "^1.0.1",
+    "xhr-request": "^1.0.1"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-runtime": "^6.15.0"
+  }
+}
+
